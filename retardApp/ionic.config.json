@@ -1,0 +1,7 @@
+{
+  "name": "myYnov-Boilerplate",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

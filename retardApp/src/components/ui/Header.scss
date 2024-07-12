@@ -1,0 +1,18 @@
+.header {
+  &__logo {
+    margin: 3px;
+    width: 100px;
+  }
+  &__test {
+    --min-height: 30px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    & > div {
+      padding: 2px;
+      margin: 0;
+      background-color: rgba(var(--ion-color-warning-rgb), 0.4);
+    }
+  }
+}

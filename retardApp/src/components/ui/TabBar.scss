@@ -1,0 +1,9 @@
+.tab-bar {
+  position: absolute;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  right: 0;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 50px;
+}

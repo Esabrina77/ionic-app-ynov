@@ -1,0 +1,96 @@
+.student-home {
+    &__swiper {
+      
+      //margin-bottom: 12px;
+      & h2 {
+        text-transform: uppercase;
+  
+  
+  ;
+      }
+  
+    }
+    &__agenda {
+      border-top: 1px solid var(--ion-color-medium);
+      margin-left: 46px;
+      margin-right: 26px;
+      padding-top: 16px;
+  
+  
+  
+      
+    }
+    
+  }
+  //ion-content
+   #summarytext{
+  //background: #1a897e;
+  
+  //scale: 0.01;
+    //width: 70rem;
+    width: 70%;
+   // height: 56rem;
+    margin: 5% 15% ;
+    height: 2rem;
+    display:inline-block;
+    background:  #D9ECEB;
+    border-radius:35px ;
+    text-align: center;
+  padding-top: 7px;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-size:14px ;
+  
+  }
+  
+  #summarytime{
+  color: red;
+  }
+  
+  
+  .actualcategory{
+    margin: 2rem 3rem;
+  
+    width: 50%;
+    display: inline;
+    font-size: smaller;
+  
+    color: #5448;
+  
+  
+  }
+  .category1{
+    width: 50%;
+    height: 1px;
+    left: 5%;
+  position: absolute;
+    border: 1.50px #5448 solid;
+  
+  
+  }
+  .category2{
+    width: 40%;
+    left: 54.9%;
+    height: 0px;
+    border: 1.50px #23B2A4 solid;
+  
+  
+  }
+  .categorybody{
+  
+  top: 5%;
+    height: 10%;
+  
+  
+  
+  }
+  .unselectedlcategory{
+   position: absolute;
+    display: inline;
+    width: 20rem;
+  margin: 0rem 2rem;
+    font-size: small;
+    color: #03bbb2;
+  
+  
+  }
