@@ -44,7 +44,7 @@ const absences = [
       <IonContent>
         <div style={{ padding: '10px' }}>
         <StatSlider 
-            period="Ces 30 derniers Jours"
+            period="Total d'absences injustifiées"
             value={totalAbsences}
             unit="h"
             label="d'absences"
