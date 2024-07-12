@@ -38,7 +38,6 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     <>
     <Header title="Retards" showLogo />
     <IonContent>
-      <div style={{ padding: '10px' }}>
       <StatSlider 
             period="Ces 30 derniers Jours"
             value={totalRetard}
@@ -47,7 +46,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           />
 
         <IonList>
-          <div className='list-item'>
+          <div className='list-items'>
           {retards.map((retard, index) => (
             <IonItem key={index}>
               <IonLabel>
@@ -58,7 +57,6 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           ))}
           </div>
         </IonList>
-      </div>
     </IonContent>
   </>
   );

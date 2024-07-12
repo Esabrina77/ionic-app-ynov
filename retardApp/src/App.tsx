@@ -16,6 +16,10 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 
 import "./App.css";
+
+//import de la famille de polices montserrat
+import './theme/fonts.css';
+//import des variables css
 import "./theme/variables.css";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router";

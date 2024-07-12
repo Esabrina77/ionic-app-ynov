@@ -1,2 +1,13 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+/* fonts themes */
+:root {
+    --font-regular: 'Montserrat-Regular', sans-serif;
+    --font-medium: 'Montserrat-Medium', sans-serif;
+    --font-semibold: 'Montserrat-SemiBold', sans-serif;
+    --font-bold: 'Montserrat-Bold', sans-serif;
+  }
+  body {
+    font-family: var(--font-regular);
+  }
