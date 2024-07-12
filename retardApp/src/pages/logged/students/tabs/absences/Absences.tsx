@@ -4,6 +4,7 @@ import { Header } from '../../../../../components/ui/Header';
 import { TabWrappedComponent } from '../../../../../components/utils/TabWrapper';
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
 
+import './Absences.scss';
 import {
   useIonViewDidEnter,
   useIonViewWillLeave,
@@ -50,6 +51,7 @@ const absences = [
             label="d'absences"
           />
           <IonList>
+          <div className='list-items'>
             {absences.map((absence, index) => (
               <IonItem key={index}>
                 <IonLabel>
@@ -58,6 +60,7 @@ const absences = [
                 </IonLabel>
               </IonItem>
             ))}
+            </div>
           </IonList>
         </div>
       </IonContent>

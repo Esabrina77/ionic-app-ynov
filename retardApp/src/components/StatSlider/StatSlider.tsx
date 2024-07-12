@@ -10,13 +10,13 @@ interface StatSliderProps {
 }
 
 const StatSlider: React.FC<StatSliderProps> = ({ period, value, unit, label }) => {
-  return (
-    <div className="stat-slider">
-      <span>{period} :</span>
-      <IonText color="danger">{value} {unit}</IonText>
-      <span>{label}</span>
-    </div>
-  );
+    return (
+        <div className="stat-slider">
+          <span>{period} :</span>
+          <IonText color="danger"> &nbsp;{value} {unit} </IonText>
+          <span>&nbsp;{label}</span>
+        </div>
+      );
 };
 
 export default StatSlider;

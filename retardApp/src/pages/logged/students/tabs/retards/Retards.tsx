@@ -47,6 +47,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           />
 
         <IonList>
+          <div className='list-item'>
           {retards.map((retard, index) => (
             <IonItem key={index}>
               <IonLabel>
@@ -55,6 +56,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
               </IonLabel>
             </IonItem>
           ))}
+          </div>
         </IonList>
       </div>
     </IonContent>
