@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import { Header } from "../../../../../components/ui/Header";
+import StatSlider from '../../../../../components/StatSlider/StatSlider';
 import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper";
 import {
   IonContent,
@@ -38,10 +39,12 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     <Header title="Retards" showLogo />
     <IonContent>
       <div style={{ padding: '10px' }}>
-       
-        <div style={{ fontWeight: 'bold', fontSize: '1.2em', marginBottom: '10px' }}>
-          Ces 30 derniers Jours : {totalRetard} min de retards
-        </div>
+      <StatSlider 
+            period="Ces 30 derniers Jours"
+            value={totalRetard}
+            unit="min"
+            label="de retards"
+          />
 
         <IonList>
           {retards.map((retard, index) => (

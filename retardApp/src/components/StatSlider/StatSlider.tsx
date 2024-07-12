@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonText } from '@ionic/react';
-import './StatSlider.css';
+import './StatSlider.scss';
 
 interface StatSliderProps {
   period: string;

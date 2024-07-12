@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { Header } from '../../../../../components/ui/Header';
 import { TabWrappedComponent } from '../../../../../components/utils/TabWrapper';
+import StatSlider from '../../../../../components/StatSlider/StatSlider';
+
 import {
   useIonViewDidEnter,
   useIonViewWillLeave,
@@ -34,16 +36,19 @@ const absences = [
   useIonViewWillLeave(() => {
     setVisible(false);
   });
-  const totalRetard = absences.reduce((total, retard) => total + retard.duration, 0);
+  const totalAbsences = absences.reduce((total, retard) => total + retard.duration, 0);
 
   return (
     <>
        <Header title="Absences" showLogo />
       <IonContent>
         <div style={{ padding: '10px' }}>
-          <div style={{ fontWeight: 'bold', fontSize: '1.2em', marginBottom: '10px' }}>
-            Ces 30 derniers Jours : {totalRetard} h d'absences.
-          </div>
+        <StatSlider 
+            period="Ces 30 derniers Jours"
+            value={totalAbsences}
+            unit="h"
+            label="d'absences"
+          />
           <IonList>
             {absences.map((absence, index) => (
               <IonItem key={index}>
