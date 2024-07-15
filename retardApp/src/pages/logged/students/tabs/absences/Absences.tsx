@@ -3,7 +3,7 @@ import { Header } from '../../../../../components/ui/Header';
 import { TabWrappedComponent } from '../../../../../components/utils/TabWrapper';
 import TabSwitcher from '../../../../../components/TabSwitcher/TabSwitcher';
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
-
+import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
 import './Absences.scss';
 import {
   useIonViewDidEnter,
@@ -14,7 +14,7 @@ import {
   IonLabel
 } from '@ionic/react';
 
-//fake data injustify absence
+// fake data injustify absence
 const absencesInjustify = [
   { date: '30/05', time: '08h30 à 12h30', duration: 4 },
   { date: '30/05', time: '13h30 à 17h30', duration: 4 },
@@ -23,11 +23,12 @@ const absencesInjustify = [
   { date: '07/05', time: '13h30 à 17h30', duration: 4 },
   { date: '25/04', time: '08h30 à 12h30', duration: 4 },
 ];
-//fake data justify absence
-const absenceJustify=[
-  { date: '10/01', time: '08h30 à 12h30', duration: 4 },
-  { date: '20/02', time: '13h30 à 17h30', duration: 4 },
-  { date: '15/03', time: '08h30 à 12h30', duration: 4},
+
+// fake data justify absence
+const absenceJustify = [
+  { date: '10/01', time: '08h30 à 12h30', duration: 0 },
+  { date: '20/02', time: '13h30 à 17h30', duration: 0 },
+  { date: '15/03', time: '08h30 à 12h30', duration: 0},
 ];
 
 export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
@@ -63,12 +64,14 @@ export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
         />
         {currentTab === 'unjustified' ? (
           <>
-            <StatSlider 
-              period="Total d'absences injustifiées"
-              value={totalAbsencesInJustify}
-              unit="h"
-              label="d'absences"
-            />
+            <HeaderRadius>
+              <StatSlider 
+                period="Total d'absences injustifiées"
+                value={totalAbsencesInJustify}
+                unit="h"
+                label="d'absences"
+              />
+            </HeaderRadius>
             <IonList>
               <div className='list-items'>
                 {absencesInjustify.map((absence, index) => (
@@ -92,12 +95,14 @@ export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
             <p>Vous n'avez pas d'absences justifiées</p>
           ) : (
             <>
-              <StatSlider 
-                period="Total d'absences justifiées"
-                value={totalAbsencesJustify}
-                unit="h"
-                label="d'absences"
-              />
+              <HeaderRadius>
+                <StatSlider 
+                  period="Total d'absences justifiées"
+                  value={totalAbsencesJustify}
+                  unit="h"
+                  label="d'absences"
+                />
+              </HeaderRadius>
               <IonList>
                 <div className='list-items'>
                   {absenceJustify.map((absence, index) => (

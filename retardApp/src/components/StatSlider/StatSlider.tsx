@@ -11,7 +11,7 @@ interface StatSliderProps {
 
 const StatSlider: React.FC<StatSliderProps> = ({ period, value, unit, label }) => {
     return (
-        <div className="stat-slider">
+        <div>
           <span>{period} :</span>
           <IonText className='danger'> &nbsp;{value} {unit} </IonText>
           <span>&nbsp;{label}</span>
