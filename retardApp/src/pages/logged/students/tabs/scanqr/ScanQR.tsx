@@ -3,7 +3,7 @@ import { Header } from "../../../../../components/ui/Header";
 
 import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper";
 import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
-
+import ScanQR from '../../../../../components/HeaderRadius/HeaderRadius';
 import {
     IonContent,
     useIonViewDidEnter,
@@ -14,7 +14,7 @@ import {
     IonText
   } from '@ionic/react';
 
-export const ScanQR: React.FC<TabWrappedComponent> = ({ isTab }) => {
+export const Scanqr: React.FC<TabWrappedComponent> = ({ isTab }) => {
     const [visible, setVisible] = useState(false);
     const [currentTab, setCurrentTab] = useState<'actual' | 'cumul'>('actual');
   
@@ -36,3 +36,4 @@ export const ScanQR: React.FC<TabWrappedComponent> = ({ isTab }) => {
         </IonPage>
       );
     };
+export default Scanqr;

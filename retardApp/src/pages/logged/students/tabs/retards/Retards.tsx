@@ -6,6 +6,7 @@ import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper"
 import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
 
 import {
+  useIonRouter,
   IonContent,
   useIonViewDidEnter,
   useIonViewWillLeave,
@@ -15,6 +16,8 @@ import {
   IonText
 } from '@ionic/react';
 import "./Retards.scss";
+
+const router = useIonRouter();
 
 const retards = [
   { date: '30/05', time: '08h30 à 12h30', duration: 10 },
@@ -75,12 +78,15 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
                 <p> Votre retard est de : <span className='danger'> 10 </span> min
                 </p>
               </div>
-              <div className='btn_scanQR'>
-                {/* button for scanning QR */}
-                <p>
-                  Scanner le code QR
-                </p>
-                </div>
+              
+              <div
+                className='btn_scanQR'
+                onClick={() => router.push('/tabs/scanqr')}
+              >
+                <p>Scanner le code QR</p>
+              </div>
+
+
             </>
           ) : (
             <HeaderRadius>

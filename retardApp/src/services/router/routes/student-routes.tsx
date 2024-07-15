@@ -6,6 +6,8 @@ import absence from "../../../assets/svg/icons/absences.svg";
 import agenda from "../../../assets/svg/icons/agenda.svg";
 import  retard  from "../../../assets/svg/icons/retards.svg";
 import RetardsTab from "../../../pages/logged/students/tabs/retards/Retards";
+
+import  ScanTab  from  "../../../pages/logged/students/tabs/scanqr/Scanqr";
 import  AbsencesTab  from "../../../pages/logged/students/tabs/absences/Absences";
 import { ExampleTab } from "../../../pages/logged/students/tabs/example/Example";
 import { StudentHome } from "../../../pages/logged/students/tabs/student-home/StudentHome";
@@ -51,5 +53,13 @@ export const ROUTES: RouteItem[] = [
     showInTabs: true,
     brand: [AppBrand.Ynov],
     feature: "Absences" as AppFeature,
+  },
+  {
+    title: "Scan code QR",
+    component: ScanTab,
+    tab: "scanqr",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: "scanqr" as AppFeature,
   }
 ];
