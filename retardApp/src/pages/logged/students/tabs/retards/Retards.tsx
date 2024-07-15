@@ -12,6 +12,7 @@ import {
   IonLabel
 } from '@ionic/react';
 import "./Retards.scss";
+import { color } from 'framer-motion';
 
 const retards = [
   { date: '30/05', time: '08h30 à 12h30', duration: 10 },
@@ -21,6 +22,10 @@ const retards = [
   { date: '07/05', time: '13h30 à 17h30', duration: 25 },
   { date: '25/04', time: '08h30 à 12h30', duration: 10 },
 ];
+
+const actualretards = [
+  {duration: 10},
+]
 
 export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
@@ -53,9 +58,19 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           defaultTab="actual"
         />
         {currentTab === 'actual' ? (
+        
+       <div>
           <p>
             Vous êtes en retard. Veuillez scanner le code QR.
           </p>
+
+    <div className='tooltip'>
+    <p className='retardsummary'>Votre cours <b className='course'>Appel d’Offre </b> a commencé.
+    Votre retard est de : min</p>
+    </div>
+
+    </div>
+        
         ) : (
           <>
             <StatSlider 
