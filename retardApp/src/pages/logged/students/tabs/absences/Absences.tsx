@@ -16,7 +16,7 @@ import {
 
 // fake data injustify absence
 const absencesInjustify = [
-  { date: '30/05', time: '08h30 à 12h30', duration: 4 },
+  { date: '30/05', time: '08h30 à 12h30', duration: 2 },
   { date: '30/05', time: '13h30 à 17h30', duration: 4 },
   { date: '15/05', time: '08h30 à 12h30', duration: 4},
   { date: '09/05', time: '08h30 à 12h30', duration: 4 },
@@ -26,9 +26,9 @@ const absencesInjustify = [
 
 // fake data justify absence
 const absenceJustify = [
-  { date: '10/01', time: '08h30 à 12h30', duration: 0 },
-  { date: '20/02', time: '13h30 à 17h30', duration: 0 },
-  { date: '15/03', time: '08h30 à 12h30', duration: 0},
+  { date: '10/01', time: '08h30 à 12h30', duration: 7 },
+  { date: '20/02', time: '13h30 à 17h30', duration: 4 },
+  { date: '15/03', time: '08h30 à 12h30', duration: 4},
 ];
 
 export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
@@ -63,7 +63,12 @@ export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
           defaultTab="unjustified"
         />
         {currentTab === 'unjustified' ? (
-          <>
+           totalAbsencesInJustify === 0 ? (
+            <HeaderRadius>
+            <p>Aucune absence injustifiée</p>
+            </HeaderRadius>
+          ) : (
+            <>
             <HeaderRadius>
               <StatSlider 
                 period="Total d'absences injustifiées"
@@ -90,9 +95,12 @@ export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
               </div>
             </IonList>
           </>
+          )
         ) : (
           totalAbsencesJustify === 0 ? (
-            <p>Vous n'avez pas d'absences justifiées</p>
+            <HeaderRadius>
+            <p>Aucune absence justifiée</p>
+            </HeaderRadius>
           ) : (
             <>
               <HeaderRadius>

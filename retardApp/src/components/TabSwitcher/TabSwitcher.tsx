@@ -43,8 +43,12 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ onTabChange, tabs, defaultTab
   return (
     <StyledSegment value={selectedTab} onIonChange={handleTabChange}>
       {tabs.map((tab) => (
-        <StyledSegmentButton key={tab.value} value={tab.value}>
-          <IonLabel>{tab.label}</IonLabel>
+        <StyledSegmentButton
+          key={tab.value}
+          value={tab.value}>
+          <IonLabel>
+            {tab.label}
+          </IonLabel>
         </StyledSegmentButton>
       ))}
     </StyledSegment>

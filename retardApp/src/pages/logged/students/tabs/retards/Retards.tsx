@@ -3,13 +3,16 @@ import { Header } from "../../../../../components/ui/Header";
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
 import TabSwitcher from '../../../../../components/TabSwitcher/TabSwitcher';
 import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper";
+import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
+
 import {
   IonContent,
   useIonViewDidEnter,
   useIonViewWillLeave,
   IonList,
   IonItem,
-  IonLabel
+  IonLabel,
+  IonText
 } from '@ionic/react';
 import "./Retards.scss";
 
@@ -29,12 +32,11 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   useIonViewDidEnter(() => {
     setVisible(true);
   });
-
   useIonViewWillLeave(() => {
     setVisible(false);
   });
-
   const totalRetard = retards.reduce((total, retard) => total + retard.duration, 0);
+  const ifRetard = false;
 
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab as 'actual' | 'cumul');
@@ -53,17 +55,30 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           defaultTab="actual"
         />
         {currentTab === 'actual' ? (
-          <p>
-            Vous êtes en retard. Veuillez scanner le code QR.
-          </p>
+          ifRetard ? (
+            <HeaderRadius>
+              <IonText color="danger">
+                Vous êtes en retard
+              </IonText>
+            </HeaderRadius>
+          ) : (
+            <HeaderRadius>
+              <IonText>
+              Vous n'êtes pas en retard
+              </IonText>
+            </HeaderRadius>
+          )
+          ////////////////////////////////////
         ) : (
           <>
-            <StatSlider 
-              period="Ces 30 derniers Jours"
-              value={totalRetard}
-              unit="min"
-              label="de retards"
-            />
+            <HeaderRadius>
+              <StatSlider 
+                period="Ces 30 derniers Jours"
+                value={totalRetard}
+                unit="min"
+                label="de retards"
+              />
+            </HeaderRadius>
             <IonList>
               <div className='list-items'>
                 {retards.map((retard, index) => (

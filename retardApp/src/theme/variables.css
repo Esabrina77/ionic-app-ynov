@@ -9,5 +9,9 @@ http://ionicframework.com/docs/theming/ */
     --font-bold: 'Montserrat-Bold', sans-serif;
   }
   body {
-    font-family: var(--font-regular);
+    font-family: var(--font-regular)  !important;
+  }
+  .danger {
+    font-family: var(--font-bold) !important;
+    color: #ff0000;
   }

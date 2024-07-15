@@ -10,7 +10,9 @@ import {
 import { motion } from "framer-motion";
 import { menu, notificationsOutline } from "ionicons/icons";
 import React from "react";
-import { useBranding } from "../../services/branding/useBranding";
+// import { useBranding } from "../../services/branding/useBranding";
+import  LogoYnov  from "../../assets/images/logo/ynov.svg";
+
 import { TrackedButton } from "./TrackedButton";
 
 import { useUser } from "../../services/user/useUser";
@@ -29,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   showLogo,
   hideMenu,
 }) => {
-  const { logo } = useBranding();
+  const logo = LogoYnov;
   const { push } = useIonRouter();
   const { tokenData } = useUser();
 
@@ -40,7 +42,6 @@ export const Header: React.FC<HeaderProps> = ({
           {(showLogo && (
             <div style={{ marginLeft: -8 }}>
               <TrackedButton
-                color="dark"
                 onClick={() => {
                   if (tokenData) {
                     push("/tabs/home", "none", "push");
