@@ -24,6 +24,7 @@ const retards = [
   { date: '07/05', time: '13h30 à 17h30', duration: 25 },
   { date: '25/04', time: '08h30 à 12h30', duration: 10 },
 ];
+const cours = "Appel d'offre";
 
 export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
@@ -35,7 +36,9 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   useIonViewWillLeave(() => {
     setVisible(false);
   });
+  //total du retard
   const totalRetard = retards.reduce((total, retard) => total + retard.duration, 0);
+  //var de verif de l'etat du retard 
   const ifRetard = true;
 
   const handleTabChange = (tab: string) => {
@@ -46,7 +49,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     <>
       <Header title="Retards" showLogo />
       <IonContent>
-        <TabSwitcher 
+        <TabSwitcher
           onTabChange={handleTabChange}
           tabs={[
             { value: 'actual', label: 'Actuel' },
@@ -56,15 +59,33 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
         />
         {currentTab === 'actual' ? (
           ifRetard ? (
-            <HeaderRadius>
-              <IonText color="danger">
-                Vous êtes en retard
-              </IonText>
-            </HeaderRadius>
+
+            <>
+              <HeaderRadius>
+                <IonText color="danger">
+                  Vous êtes en retard
+                </IonText>
+
+              </HeaderRadius>
+              <div className='tooltip'>
+                <p className='retardsummary'> Votre cours
+                  <span className='course'> {cours}
+                  </span> a commencé.
+                </p>
+                <p> Votre retard est de : <span className='danger'> 10 </span> min
+                </p>
+              </div>
+              <div className='btn_scanQR'>
+                {/* button for scanning QR */}
+                <p>
+                  Scanner le code QR
+                </p>
+                </div>
+            </>
           ) : (
             <HeaderRadius>
               <IonText>
-              Vous n'êtes pas en retard
+                Vous n'êtes pas en retard
               </IonText>
             </HeaderRadius>
           )
@@ -72,7 +93,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
         ) : (
           <>
             <HeaderRadius>
-              <StatSlider 
+              <StatSlider
                 period="Ces 30 derniers Jours"
                 value={totalRetard}
                 unit="min"
@@ -84,13 +105,13 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
                 {retards.map((retard, index) => (
                   <IonItem key={index}>
                     <IonLabel>
-                      <h2>Cours du 
+                      <h2>Cours du
                         <span className='absence_date'> {retard.date} </span> de
                         <span className='absence_time'> {retard.time}</span>
                       </h2>
-                      <p> Durée du retard : 
+                      <p> Durée du retard :
                         <span className='absence_duration'> {retard.duration} </span>
-                        min 
+                        min
                       </p>
                     </IonLabel>
                   </IonItem>
