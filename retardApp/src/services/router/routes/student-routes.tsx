@@ -47,7 +47,7 @@ export const ROUTES: RouteItem[] = [
     title: "Absences",
     icon: <IonIcon icon={absence}></IonIcon>, 
     component: AbsencesTab,
-    tab: "Absences",
+    tab: "absences",
     showInTabs: true,
     brand: [AppBrand.Ynov],
     feature: "Absences" as AppFeature,

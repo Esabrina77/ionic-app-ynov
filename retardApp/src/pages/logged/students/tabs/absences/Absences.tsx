@@ -1,7 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Header } from '../../../../../components/ui/Header';
 import { TabWrappedComponent } from '../../../../../components/utils/TabWrapper';
+import TabSwitcher from '../../../../../components/TabSwitcher/TabSwitcher';
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
 
 import './Absences.scss';
@@ -9,17 +9,13 @@ import {
   useIonViewDidEnter,
   useIonViewWillLeave,
   IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
   IonList,
   IonItem,
   IonLabel
 } from '@ionic/react';
 
-//fake data pour les heures d'absences
-const absences = [
+//fake data injustify absence
+const absencesInjustify = [
   { date: '30/05', time: '08h30 à 12h30', duration: 4 },
   { date: '30/05', time: '13h30 à 17h30', duration: 4 },
   { date: '15/05', time: '08h30 à 12h30', duration: 4},
@@ -27,9 +23,17 @@ const absences = [
   { date: '07/05', time: '13h30 à 17h30', duration: 4 },
   { date: '25/04', time: '08h30 à 12h30', duration: 4 },
 ];
+//fake data justify absence
+const absenceJustify=[
+  { date: '10/01', time: '08h30 à 12h30', duration: 4 },
+  { date: '20/02', time: '13h30 à 17h30', duration: 4 },
+  { date: '15/03', time: '08h30 à 12h30', duration: 4},
+];
 
- export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
+export const AbsencesTab: React.FC<TabWrappedComponent> = ({isTab}) => {
   const [visible, setVisible] = useState(false);
+  const [currentTab, setCurrentTab] = useState('unjustified');
+
   useIonViewDidEnter(() => {
     setVisible(true);
   });
@@ -37,32 +41,83 @@ const absences = [
   useIonViewWillLeave(() => {
     setVisible(false);
   });
-  const totalAbsences = absences.reduce((total, retard) => total + retard.duration, 0);
+
+  const totalAbsencesInJustify = absencesInjustify.reduce((total, absence) => total + absence.duration, 0);
+  const totalAbsencesJustify = absenceJustify.reduce((total, absence) => total + absence.duration, 0);
+
+  const handleTabChange = (tab: string) => {
+    setCurrentTab(tab);
+  };
 
   return (
     <>
-       <Header title="Absences" showLogo />
+      <Header title="Absences" showLogo />
       <IonContent>
-        <div style={{ padding: '10px' }}>
-        <StatSlider 
-            period="Total d'absences injustifiées"
-            value={totalAbsences}
-            unit="h"
-            label="d'absences"
-          />
-          <IonList>
-          <div className='list-items'>
-            {absences.map((absence, index) => (
-              <IonItem key={index}>
-                <IonLabel>
-                  <h2>Abscence le  {absence.date} de {absence.time}</h2>
-                  <p>{absence.duration}h manquées</p>
-                </IonLabel>
-              </IonItem>
-            ))}
-            </div>
-          </IonList>
-        </div>
+        <TabSwitcher 
+          onTabChange={handleTabChange}
+          tabs={[
+            { value: 'unjustified', label: 'Injustifiées' },
+            { value: 'justified', label: 'Justifiées' }
+          ]}
+          defaultTab="unjustified"
+        />
+        {currentTab === 'unjustified' ? (
+          <>
+            <StatSlider 
+              period="Total d'absences injustifiées"
+              value={totalAbsencesInJustify}
+              unit="h"
+              label="d'absences"
+            />
+            <IonList>
+              <div className='list-items'>
+                {absencesInjustify.map((absence, index) => (
+                  <IonItem key={index}>
+                    <IonLabel>
+                      <h2>Absence le  
+                        <span className='absence_date'> {absence.date}</span> de
+                        <span className='absence_time'> {absence.time}</span>
+                      </h2>
+                      <p>
+                        <span className='absence_duration'>{absence.duration}</span>h manquées
+                      </p>
+                    </IonLabel>
+                  </IonItem>
+                ))}
+              </div>
+            </IonList>
+          </>
+        ) : (
+          totalAbsencesJustify === 0 ? (
+            <p>Vous n'avez pas d'absences justifiées</p>
+          ) : (
+            <>
+              <StatSlider 
+                period="Total d'absences justifiées"
+                value={totalAbsencesJustify}
+                unit="h"
+                label="d'absences"
+              />
+              <IonList>
+                <div className='list-items'>
+                  {absenceJustify.map((absence, index) => (
+                    <IonItem key={index}>
+                      <IonLabel>
+                        <h2>Absence le  
+                          <span className='absence_date'> {absence.date}</span> de
+                          <span className='absence_time'> {absence.time}</span>
+                        </h2>
+                        <p>
+                          <span className='absence_duration'>{absence.duration}</span>h manquées
+                        </p>
+                      </IonLabel>
+                    </IonItem>
+                  ))}
+                </div>
+              </IonList>
+            </>
+          )
+        )}
       </IonContent>
     </>
   );

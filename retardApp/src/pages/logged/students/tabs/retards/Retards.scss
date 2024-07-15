@@ -1,6 +1,29 @@
+body{
+    overflow: hidden;
+}
 .list-items{
     margin-top: 80px;
-  }
+    font-weight: 800;
+    scrollbar-width: thin;
+    scrollbar-color: #23B2A4 ;
+  
+    h2{
+        color: #3D3D3D;
+        font-weight: 500;
+        font-family: var(--font-medium);
+    }
+    p{
+        color: #3D3D3D;
+        font-family: var(--font-medium);
+    }
+    .absence_date{
+        color:#23B2A4;
+    }
+   .absence_duration{
+    color:#3D3D3D ;
+    font-family: var(--font-bold);
+   }
+}
   
  //responsive mobile 
  @media (max-width: 400px) {
