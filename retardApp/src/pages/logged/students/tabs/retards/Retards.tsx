@@ -36,7 +36,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     setVisible(false);
   });
   const totalRetard = retards.reduce((total, retard) => total + retard.duration, 0);
-  const ifRetard = false;
+  const ifRetard = true;
 
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab as 'actual' | 'cumul');
