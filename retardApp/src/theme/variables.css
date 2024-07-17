@@ -8,10 +8,15 @@ http://ionicframework.com/docs/theming/ */
     --font-semibold: 'Montserrat-SemiBold', sans-serif;
     --font-bold: 'Montserrat-Bold', sans-serif;
   }
-  body {
-    font-family: var(--font-regular)  !important;
+  *{
+    font-family: var(--font-semibold) ;
   }
   .danger {
     font-family: var(--font-bold) !important;
     color: #ff0000;
   }
+  .course{
+    color:#23B2A4;
+    font-family: var(--font-bold) !important;
+   
+}

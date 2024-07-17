@@ -24,9 +24,10 @@ import "./theme/variables.css";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router";
 import { TabRouter } from "./pages/logged/common/TabRouter";
-
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 setupIonicReact();
 const App: React.FC = () => {
+  defineCustomElements(window);
   return (
     <IonApp>
       <IonReactRouter>

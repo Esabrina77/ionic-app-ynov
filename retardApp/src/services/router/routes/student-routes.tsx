@@ -4,12 +4,18 @@ import { IonIcon } from "@ionic/react";
 import accueil from "../../../assets/svg/icons/accueil.svg";
 import absence from "../../../assets/svg/icons/absences.svg";
 import agenda from "../../../assets/svg/icons/agenda.svg";
+import actualites from "../../../assets/svg/icons/actualites.svg";
 import  retard  from "../../../assets/svg/icons/retards.svg";
-import RetardsTab from "../../../pages/logged/students/tabs/retards/Retards";
-import  ScanQrTab  from "../../../pages/logged/students/tabs/ScanQRPage/ScanQRPage";
 
+//import des pages 
+//retard & scan page   message confirmation || echec scan
+import RetardsTab from "../../../pages/logged/students/tabs/retards/Retards";
+// import  ScanQRPage  from "../../../pages/logged/students/tabs/ScanQRPage/ScanQRPage";
+import { MessageScanTab } from  "../../../pages/logged/students/tabs/MessageScan/MessageScan";
+
+//absences
  import  AbsencesTab  from "../../../pages/logged/students/tabs/absences/Absences";
-import { ExampleTab } from "../../../pages/logged/students/tabs/example/Example";
+import  ExampleTab  from "../../../pages/logged/students/tabs/example/Example";
 import { StudentHome } from "../../../pages/logged/students/tabs/student-home/StudentHome";
 import { AppBrand } from "../../branding/branding.interfaces";
 import { AppFeature } from "../../user/interfaces/app-feature.enum";
@@ -28,7 +34,7 @@ export const ROUTES: RouteItem[] = [
     feature: AppFeature.Home,
   },
   {
-    title: "Example",
+    title: "SCanner",
     icon: <IonIcon src={agenda}></IonIcon>,
     component: ExampleTab,
     tab: "example",
@@ -36,6 +42,16 @@ export const ROUTES: RouteItem[] = [
     brand: [AppBrand.Ynov],
     feature: AppFeature.Example,
    },
+  {
+    title: "Retards",
+    icon: <IonIcon icon={actualites}></IonIcon>, 
+    component: MessageScanTab,
+    tab: "messageScan",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: "messageScan" as AppFeature,
+  },
+ 
   {
     title: "Retards",
     icon: <IonIcon icon={retard}></IonIcon>, 
@@ -53,14 +69,5 @@ export const ROUTES: RouteItem[] = [
     showInTabs: true,
     brand: [AppBrand.Ynov],
     feature: "Absences" as AppFeature,
-  },
-  {
-    title: "Scan QR code",
-    icon: <IonIcon icon={absence}></IonIcon>, 
-    component: ScanQrTab,
-    tab: "scanqr",
-    showInTabs: true,
-    brand: [AppBrand.Ynov],
-    feature: "Scanqr" as AppFeature,
   }
 ];

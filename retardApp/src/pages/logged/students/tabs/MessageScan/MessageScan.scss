@@ -1,0 +1,31 @@
+
+  .class_gif {
+    position: absolute;
+    z-index: 1;
+    bottom: -60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 100px;
+    width: 200px;
+    height: 218px;
+    font-family: var(--font-medium);
+  };
+
+.text_scan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-family: var(--font-bold);
+    z-index: 1;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    padding: 7px 18px;
+    width: 326px;
+    height: 127px;
+    background-color: #B9D7B8;
+  margin-top: 20px;
+}

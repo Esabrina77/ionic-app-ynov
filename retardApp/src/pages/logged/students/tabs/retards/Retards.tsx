@@ -65,7 +65,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
 
             <>
               <HeaderRadius>
-                <IonText color="danger">
+                <IonText className="danger">
                   Vous êtes en retard
                 </IonText>
 

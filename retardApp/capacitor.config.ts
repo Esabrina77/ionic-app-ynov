@@ -4,11 +4,17 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'myYnov-Boilerplate',
   webDir: 'dist',
-  plugins:{
-    BarcodeScanner:{
-      
-    }
-  }
+  plugins: {
+    BarcodeScanner: {
+      android: {
+        permissions: [
+          "android.permission.CAMERA",
+        ],
+        enableVibration: true,
+        enableSound: true,
+      },
+    },
+  },
 };
 
 export default config;

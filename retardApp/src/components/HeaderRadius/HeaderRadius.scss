@@ -1,3 +1,4 @@
+
 .stat-slider {
     position: fixed;
    top:120px;
@@ -12,16 +13,7 @@
     padding: 3px 7px;
     justify-content: center;
     align-items: center;
-    text-align: center;
     background-color: #d5e8e4;
     border-radius: 30px;
-    font-weight: bold;
-    color: #333;
     font-family: var(--font-medium);
-
-    .stat-slider span {
-    justify-content: center;
-    align-items: center;
-        margin: 0 1px;
-      }
     }
