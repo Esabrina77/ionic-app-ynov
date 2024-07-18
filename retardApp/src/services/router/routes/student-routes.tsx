@@ -10,9 +10,8 @@ import  retard  from "../../../assets/svg/icons/retards.svg";
 //import des pages 
 //retard & scan page   message confirmation || echec scan
 import RetardsTab from "../../../pages/logged/students/tabs/retards/Retards";
-import  ScanQRPage  from "../../../pages/logged/students/tabs/ScanQRPage/ScanQRPage";
 import { MessageScanTab } from  "../../../pages/logged/students/tabs/MessageScan/MessageScan";
-
+import ScanTab from "../../../pages/logged/students/tabs/scanQr/ScanPage"
 //absences
  import  AbsencesTab  from "../../../pages/logged/students/tabs/absences/Absences";
 import  ExampleTab  from "../../../pages/logged/students/tabs/example/Example";
@@ -25,16 +24,6 @@ import { RouteItem } from "../interfaces/tab-item.interface";
 
 export const ROUTES: RouteItem[] = [
   
-  {
-    title: "QR CODE",
-    icon: <IonIcon src={retard}></IonIcon>,
-    component: ScanQRPage,
-    tab: "qrcode",
-    showInTabs: true,
-    brand: [AppBrand.Ynov],
-    feature: AppFeature.Example,
-   },
-  
   
   {
     title: "Accueil",
@@ -46,7 +35,7 @@ export const ROUTES: RouteItem[] = [
     feature: AppFeature.Home,
   },
   // {
-  //   title: "SCanner",
+  //   title: "Exemple",
   //   icon: <IonIcon src={agenda}></IonIcon>,
   //   component: ExampleTab,
   //   tab: "example",
@@ -54,17 +43,25 @@ export const ROUTES: RouteItem[] = [
   //   brand: [AppBrand.Ynov],
   //   feature: AppFeature.Example,
   //  },
-    
-   
   {
-    title: "Retards",
-    icon: <IonIcon icon={actualites}></IonIcon>, 
-    component: MessageScanTab,
-    tab: "messageScan",
+    title: "QR test",
+    icon: <IonIcon src={actualites}></IonIcon>,
+    component:ScanTab ,
+    tab: "qrcode",
     showInTabs: true,
     brand: [AppBrand.Ynov],
-    feature: "messageScan" as AppFeature,
-  },
+    feature: AppFeature.Example,
+   },
+   
+  // {
+  //   title: "alert",
+  //   icon: <IonIcon icon={actualites}></IonIcon>, 
+  //   component: MessageScanTab,
+  //   tab: "messageScan",
+  //   showInTabs: true,
+  //   brand: [AppBrand.Ynov],
+  //   feature: "messageScan" as AppFeature,
+  // },
  
   // {
   //   title: "Retards",
@@ -75,13 +72,13 @@ export const ROUTES: RouteItem[] = [
   //   brand: [AppBrand.Ynov],
   //   feature: "Retards" as AppFeature,
   // },
-  {
-    title: "Absences",
-    icon: <IonIcon icon={absence}></IonIcon>, 
-    component: AbsencesTab,
-    tab: "absences",
-    showInTabs: false,
-    brand: [AppBrand.Ynov],
-    feature: "Absences" as AppFeature,
-  }
+  // {
+  //   title: "Absences",
+  //   icon: <IonIcon icon={absence}></IonIcon>, 
+  //   component: AbsencesTab,
+  //   tab: "absences",
+  //   showInTabs: false,
+  //   brand: [AppBrand.Ynov],
+  //   feature: "Absences" as AppFeature,
+  // }
 ];
