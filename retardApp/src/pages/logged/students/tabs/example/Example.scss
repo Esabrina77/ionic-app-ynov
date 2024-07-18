@@ -1,41 +1,37 @@
-.example-tab {
+.ion-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 20px;
+  background-color: white; /* Ensure background is set */
+  z-index: 10; /* Ensure it's above the camera view */
 }
 
-.content {
+.ion-content {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  background-color: white; /* Ensure background is set */
+  z-index: 10; /* Ensure it's above the camera view */
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
+.ion-button {
+  margin: 20px;
+  z-index: 11; /* Ensure button is above the camera view */
 }
 
-.scanner-container {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+.ion-text {
+  font-size: 18px;
+  margin: 10px;
+  color: black; /* Ensure text color is set */
+  z-index: 11; /* Ensure text is above the camera view */
 }
 
-.scan-result {
-  margin-top: 20px;
-  text-align: center;
-}
+.barcode-scanner-active {
+  .ion-header {
+    display: none; /* Hide header during scanning */
+  }
 
-.scan-result a {
-  color: #007bff;
-  text-decoration: none;
+  .ion-content {
+    display: none; /* Hide content during scanning */
+  }
 }

@@ -1,8 +1,24 @@
-.scanner-active {
-    --background: transparent;
-    --ion-background-color: transparent;
-  }
-  IonPage {
-    --background: transparent;
-    --ion-background-color: transparent;
-  }
+.barcode-scanning-active {
+  --background: transparent !important;
+}
+
+.square {
+  position: relative; /* Change to relative if you want it to stay within the parent content */
+  width: 100%; /* Adjust width and height to maintain a square aspect ratio */
+  height: 0;
+  padding-bottom: 100%; /* This creates a square based on percentage */
+  overflow: hidden; /* Ensures contents don't overflow */
+}
+
+
+.zoom-ratio-wrapper {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 16px !important;
+  transform: translateX(-50%) !important;
+  width: 50% !important;
+}
+
+.barcode-scanning-modal {
+  --background: transparent !important;
+}

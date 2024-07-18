@@ -8,7 +8,8 @@ const config: CapacitorConfig = {
     BarcodeScanner: {
       android: {
         permissions: [
-          "android.permission.CAMERA",
+             'android.permission.CAMERA',
+          'android.permission.FLASHLIGHT'
         ],
         enableVibration: true,
         enableSound: true,

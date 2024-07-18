@@ -10,7 +10,7 @@ import  retard  from "../../../assets/svg/icons/retards.svg";
 //import des pages 
 //retard & scan page   message confirmation || echec scan
 import RetardsTab from "../../../pages/logged/students/tabs/retards/Retards";
-// import  ScanQRPage  from "../../../pages/logged/students/tabs/ScanQRPage/ScanQRPage";
+import  ScanQRPage  from "../../../pages/logged/students/tabs/ScanQRPage/ScanQRPage";
 import { MessageScanTab } from  "../../../pages/logged/students/tabs/MessageScan/MessageScan";
 
 //absences
@@ -24,6 +24,18 @@ import { RouteItem } from "../interfaces/tab-item.interface";
 // SVGS
 
 export const ROUTES: RouteItem[] = [
+  
+  {
+    title: "QR CODE",
+    icon: <IonIcon src={retard}></IonIcon>,
+    component: ScanQRPage,
+    tab: "qrcode",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: AppFeature.Example,
+   },
+  
+  
   {
     title: "Accueil",
     icon: <IonIcon src={accueil}></IonIcon>,
@@ -33,15 +45,17 @@ export const ROUTES: RouteItem[] = [
     brand: [AppBrand.Ynov],
     feature: AppFeature.Home,
   },
-  {
-    title: "SCanner",
-    icon: <IonIcon src={agenda}></IonIcon>,
-    component: ExampleTab,
-    tab: "example",
-    showInTabs: true,
-    brand: [AppBrand.Ynov],
-    feature: AppFeature.Example,
-   },
+  // {
+  //   title: "SCanner",
+  //   icon: <IonIcon src={agenda}></IonIcon>,
+  //   component: ExampleTab,
+  //   tab: "example",
+  //   showInTabs: true,
+  //   brand: [AppBrand.Ynov],
+  //   feature: AppFeature.Example,
+  //  },
+    
+   
   {
     title: "Retards",
     icon: <IonIcon icon={actualites}></IonIcon>, 
@@ -52,21 +66,21 @@ export const ROUTES: RouteItem[] = [
     feature: "messageScan" as AppFeature,
   },
  
-  {
-    title: "Retards",
-    icon: <IonIcon icon={retard}></IonIcon>, 
-    component: RetardsTab,
-    tab: "retards",
-    showInTabs: true,
-    brand: [AppBrand.Ynov],
-    feature: "Retards" as AppFeature,
-  },
+  // {
+  //   title: "Retards",
+  //   icon: <IonIcon icon={retard}></IonIcon>, 
+  //   component: RetardsTab,
+  //   tab: "retards",
+  //   showInTabs: true,
+  //   brand: [AppBrand.Ynov],
+  //   feature: "Retards" as AppFeature,
+  // },
   {
     title: "Absences",
     icon: <IonIcon icon={absence}></IonIcon>, 
     component: AbsencesTab,
     tab: "absences",
-    showInTabs: true,
+    showInTabs: false,
     brand: [AppBrand.Ynov],
     feature: "Absences" as AppFeature,
   }
