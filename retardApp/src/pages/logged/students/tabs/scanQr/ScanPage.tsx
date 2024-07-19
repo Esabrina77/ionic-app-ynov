@@ -76,7 +76,7 @@ const ScanPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="body_page">
           <IonHeader>
             <IonToolbar>
               <IonTitle>QRScanner</IonTitle>
@@ -100,7 +100,7 @@ const ScanPage: React.FC = () => {
             {!!!err && hideBg && <div className="scan-box"></div>}
             {!!!err && !!!hideBg && (
               <IonButton className="center-button" onClick={startScan}>
-                <IonIcon slot="start" />
+                <IonIcon slot="start" className="start_scan" />
                 Start Scan
               </IonButton>
             )}

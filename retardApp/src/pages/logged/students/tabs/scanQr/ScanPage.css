@@ -1,4 +1,74 @@
 .center-button {
+  text-align: center;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  width: 150px;
+  height:50px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex !important;
+  color: #fff !important;
+  z-index: 100 !important;
+  background-color: var(--ion-color-primary);
+}
+.center-button:hover {
+  background-color: var(--ion-color-primary-tint);
+}
+
+.hideBg::part(background) {
+  opacity: 0 !important;
+}
+
+.scan-box {
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+  display: block;
+  left: 50%;
+  top: 56% !important;
+  width: 300px !important;
+  height: 300px !important;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+}
+/* Styles globaux pour la page */
+.plt-desktop .body_page,
+.plt-mobileweb .body_page
+ {
+  width: 100%;
+  height: 100%;
+}
+
+/* Cibler uniquement la plateforme web */
+ .plt-desktop div[style*="position:absolute"],
+ .plt-mobileweb body > div[style*="position:absolute"]  {
+  background-color: transparent !important;
+  width: 270px !important;
+  height: 270px !important;
+  position: absolute !important;
+  z-index: -1!important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%);
+}
+
+/* Cibler uniquement la vidéo injectée par le plugin sur la plateforme web */
+.plt-desktop body > div[style*="position:absolute"] > video,
+.plt-mobileweb body > div[style*="position:absolute"] > video {
+
+  object-fit: cover !important;
+  -webkit-transform: scaleX(-1) !important;
+  transform: scaleX(1) !important;
+  background-color: transparent !important;
+}
+
+  /* Cibler uniquement la vidéo injectée par le plugin sur la plateforme android */
+  .plt-android.plt-mobile body >.center-button {
     text-align: center;
     position: absolute;
     left: 50%;
@@ -8,20 +78,16 @@
     color: #fff !important;
     z-index: 100 !important;
   }
-  
-  .hideBg::part(background) {
-    opacity: 0 !important;
-  }
-  
-  .scan-box {
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
-    display: block;
-    left: 50%;
-    height: 70vw;
-    position: absolute;
-    top: 50%;
+
+
+  /* Cibler uniquement la vidéo injectée par le plugin sur la plateforme android  */
+  .plt-android.plt-mobile{
+    background-color: transparent !important;
+    width: 0px !important;
+    height: 270px !important;
+    position: absolute !important;
+    z-index: -1!important;
+    left: 50% !important;
+    top: 50% !important;
     transform: translate(-50%, -50%);
-    width: 70vw;
   }
-  
