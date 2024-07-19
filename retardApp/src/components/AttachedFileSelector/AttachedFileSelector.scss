@@ -1,0 +1,135 @@
+.attached-file{
+    background-color: #d5e8e4;
+   // height: 271px;
+   height: 30%;
+    width: 344px;
+    border-radius: 30px;
+    translate: -49% 115%;
+    left: 50%;
+    //position: relative;
+    position: fixed;
+    text-align: center;
+
+}
+
+#attached-legend{
+    position: relative;
+  
+    top: 10%;
+    font-family: var(--font-medium);  
+   
+}
+
+.attached-reason{
+  //  margin: 30% -65%;
+  position: fixed;
+  height: 35%;
+  width: 15rem;
+  background: #FFFFFF;
+  border-radius: 5px;
+//  margin: 35% -63%;
+  border: transparent;
+ // margin: 30% -53%
+ //margin: 30% -33%;
+ margin: 30% -63%;
+}
+
+#uploader{
+
+    background-image: url(../../assets/svg/icons/attach.svg);
+    background-size:contain;
+    height: 25px;
+   // width: 85px;
+   width: 25px;
+    left: 5%;
+    position: fixed;
+    padding: 2px;
+   // translate: 290% 447%;
+    font-size: 0;
+    translate: 285% 245%;
+    opacity: 0;
+    z-index: 3;
+
+    
+}
+
+
+
+/* 
+input[type="file"] {
+position: fixed;
+right: 100%;
+bottom: 100%;
+opacity: 0;
+z-index: 3;
+translate: -500% 257%;
+} */
+
+
+.custom-file-upload {
+border: 1px solid #ccc;
+display: inline-block;
+padding: 6px 12px;
+cursor: pointer;
+}
+#photo{
+   // translate: -250% 265%;
+   // translate: -20% 225%
+   translate: -500% 225%;
+    
+}
+
+#clip{
+    translate: -500% 257%;
+}
+
+input{
+    font-family: var(--font-medium);  
+    font-size: smaller;
+    background: #FFFFFF;
+}
+
+::placeholder{
+    font-size: smaller;
+    text-align: center;
+}
+
+.submit{
+   // translate: -125% 1125%;
+    //width: 10px;
+   // width: 150rem;
+ //  translate: -5% 925%;
+ translate: -5% 890%;
+  width: 50%;
+  height: 28px;
+  background: #23B2A4;
+  border: transparent;
+  border-radius: 5px;
+  color: #f0fffc;
+}
+
+.attached-photo{
+    background-image: url(../../assets/svg/icons/Camera.svg);
+    background-color: transparent;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    border: transparent;
+}
+
+.input-icon{
+    background: #23B2A4;
+    height: 25px;
+    width: 25px;
+}
+
+
+.attached{
+    background-image: url(../../assets/svg/icons/attach.svg);
+    background-color: transparent;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    border: transparent;
+    z-index: -1;
+}

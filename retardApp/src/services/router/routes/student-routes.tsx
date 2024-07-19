@@ -15,6 +15,9 @@ import ScanTab from "../../../pages/logged/students/tabs/scanQr/ScanPage"
 //absences
  import  AbsencesTab  from "../../../pages/logged/students/tabs/absences/Absences";
 import  ExampleTab  from "../../../pages/logged/students/tabs/example/Example";
+
+//import justificatif
+import { JustifyTab } from "../../../pages/logged/students/tabs/justificatif/Justify";
 import { StudentHome } from "../../../pages/logged/students/tabs/student-home/StudentHome";
 import { AppBrand } from "../../branding/branding.interfaces";
 import { AppFeature } from "../../user/interfaces/app-feature.enum";
@@ -61,6 +64,15 @@ export const ROUTES: RouteItem[] = [
     showInTabs: true,
     brand: [AppBrand.Ynov],
     feature: "messageScan" as AppFeature,
+  },
+  {
+    title: "Justificatif",
+    icon: <IonIcon icon={retard}></IonIcon>, 
+    component: JustifyTab,
+    tab: "justifs",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: "Justificatif" as AppFeature,
   },
  
   // {
