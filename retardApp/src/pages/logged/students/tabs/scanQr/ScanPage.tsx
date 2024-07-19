@@ -14,9 +14,9 @@ import {
   import { useEffect, useState } from "react"
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner"
   import { scanOutline, stopCircleOutline } from "ionicons/icons"
-  import "./ScanPage.css"
+  import "./ScanPage.scss"
   
-  const ScanPage: React.FC = () => {
+  const Home: React.FC = () => {
     const [err, setErr] = useState<string>()
   
     const [hideBg, setHideBg] = useState(false)
@@ -107,5 +107,5 @@ import {
     )
   }
   
-  export default ScanPage
+  export default Home
   

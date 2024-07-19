@@ -53,15 +53,15 @@ export const ROUTES: RouteItem[] = [
     feature: AppFeature.Example,
    },
    
-  // {
-  //   title: "alert",
-  //   icon: <IonIcon icon={actualites}></IonIcon>, 
-  //   component: MessageScanTab,
-  //   tab: "messageScan",
-  //   showInTabs: true,
-  //   brand: [AppBrand.Ynov],
-  //   feature: "messageScan" as AppFeature,
-  // },
+  {
+    title: "alert",
+    icon: <IonIcon icon={actualites}></IonIcon>, 
+    component: MessageScanTab,
+    tab: "messageScan",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: "messageScan" as AppFeature,
+  },
  
   // {
   //   title: "Retards",
