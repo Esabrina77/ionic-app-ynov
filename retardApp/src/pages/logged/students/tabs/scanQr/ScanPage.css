@@ -1,22 +1,12 @@
 .center-button {
   text-align: center;
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  width: 150px;
-  height:50px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex !important;
   color: #fff !important;
   z-index: 100 !important;
-  background-color: var(--ion-color-primary);
-}
-.center-button:hover {
-  background-color: var(--ion-color-primary-tint);
 }
 
 .hideBg::part(background) {
@@ -28,14 +18,14 @@
   box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
   display: block;
   left: 50%;
-  top: 56% !important;
   width: 300px !important;
   height: 300px !important;
   position: absolute;
-  top: 50%;
+  top: 47%;
   transform: translate(-50%, -50%);
   width: 70vw;
 }
+
 /* Styles globaux pour la page */
 .plt-desktop .body_page,
 .plt-mobileweb .body_page
