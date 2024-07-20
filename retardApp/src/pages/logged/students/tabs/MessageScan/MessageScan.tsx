@@ -29,11 +29,12 @@ export const MessageScanTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   useIonViewWillLeave(() => {
     setVisible(false);
   });
+  //simulating the error of the scan
   const ifError = false;
 
   return (
     <>
-      <Header title="Retards" showLogo />
+      <Header title="Retards" showLogo/>
       <IonContent>
         {
         ifError ? (

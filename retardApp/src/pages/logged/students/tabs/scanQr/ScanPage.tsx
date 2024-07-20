@@ -77,35 +77,26 @@ const ScanPage: React.FC = () => {
 
   return (
     <div className="body_page">
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>QRScanner</IonTitle>
-              {hideBg && (
-                <IonButtons slot="end">
-                  <IonButton onClick={stopScan} color="danger">
-                    <IonIcon  slot="start" />
-                    Stop Scan
-                  </IonButton>
-                </IonButtons>
-              )}
-            </IonToolbar>
-          </IonHeader>
-          <IonContent className={hideBg ? "hideBg" : "ion-padding"}>
-            {err && (
-              <IonRow>
-                <IonText color="danger">{err}</IonText>
-              </IonRow>
-            )}
-
-            {!!!err && hideBg && <div className="scan-box"></div>}
-            {!!!err && !!!hideBg && (
-              <IonButton className="center-button" onClick={startScan}>
-                <IonIcon slot="start" className="start_scan" />
+    <header style={{ backgroundColor: '#f8f8f8', padding: '10px', textAlign: 'center' }}>
+        <h1>QRScanner</h1>
+        {hideBg && (
+            <button onClick={stopScan} style={{ backgroundColor: 'red', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}>
+                Stop Scan
+            </button>
+        )}
+    </header>
+    <main style={{ padding: '20px' }}>
+        {err && (
+            <div style={{ color: 'red', textAlign: 'center' }}>{err}</div>
+        )}
+        {hideBg && <div className="scan-box"></div>}
+        {!hideBg && (
+            <button className="center-button" onClick={startScan}>
                 Start Scan
-              </IonButton>
-            )}
-          </IonContent>
-        </div>
+            </button>
+        )}
+    </main>
+</div>
   );
 };
 
