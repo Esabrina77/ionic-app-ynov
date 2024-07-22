@@ -11,16 +11,17 @@ import {
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
+import { useIonRouter } from '@ionic/react';
 import { useEffect, useState } from "react";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
-//import { scanOutline, stopCircleOutline } from "ionicons/icons";
  import "./ScanPage.css";
 
 const ScanPage: React.FC = () => {
   const [err, setErr] = useState<string>();
   const [hideBg, setHideBg] = useState(false);
   const [present] = useIonAlert();
-
+  const router = useIonRouter();
+  
   const startScan = async () => {
     console.log("Starting scan...");
     BarcodeScanner.hideBackground();
@@ -30,19 +31,29 @@ const ScanPage: React.FC = () => {
 
     if (result.hasContent) {
       stopScan();
-      present({
-        message: result.content,
-        buttons: [
-          "Cancel",
-          { text: "Ok", handler: (d) => console.log("ok pressed") },
-        ],
-        onDidDismiss: (e) => console.log("did dismiss"),
-      });
-      console.log(result.content);
+      try {
+        const scannedData = JSON.parse(result.content);
+        if ('idStatusScan' in scannedData) { 
+            // Encodez les données scannées dans l'URL
+          const encodedData = encodeURIComponent(JSON.stringify(scannedData));
+          router.push(`/tabs/message-scan?data=${encodedData}`, 'forward', 'push');
+        } else {
+          present({
+            message: "Ce QR code n'est pas valide pour le check de retard.",
+            buttons: ["OK"],
+          });
+        }
+      } catch (error) {
+        present({
+          message: "QR code invalide ou mal formaté.",
+          buttons: ["OK"],
+        });
+      }
     } else {
       console.log("No content found.");
     }
   };
+
 
   const stopScan = () => {
     console.log("Stopping scan...");

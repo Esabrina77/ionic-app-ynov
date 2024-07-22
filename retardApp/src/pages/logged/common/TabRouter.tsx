@@ -8,12 +8,16 @@ import {
 import { Redirect, Route } from "react-router";
 import { TabWrapper } from "../../../components/utils/TabWrapper";
 import { ROUTES } from "../../../services/router/routes/student-routes";
+import ScanPage from '../../../pages/logged/students/tabs/scanQr/ScanPage';
+import MessageScanTab from '../../../pages/logged/students/tabs/MessageScan/MessageScan';
 
 export const TabRouter: React.FC = () => {
   return (
     <>
       <IonTabs>
         <IonRouterOutlet>
+          <Route path="/tabs/scan" component={ScanPage} exact={true} />
+          <Route path="/tabs/message-scan" component={MessageScanTab} exact={true} />
           {ROUTES.map((route) => (
             <Route
               exact={!route.hasParam}
