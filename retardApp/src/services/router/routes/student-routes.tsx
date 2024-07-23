@@ -23,6 +23,9 @@ import { AppBrand } from "../../branding/branding.interfaces";
 import { AppFeature } from "../../user/interfaces/app-feature.enum";
 import { RouteItem } from "../interfaces/tab-item.interface";
 
+//import Décharge de Sortie
+import { DechargeSortieForm } from "../../../pages/logged/students/tabs/dechargesSorties/form";
+
 // SVGS
 
 export const ROUTES: RouteItem[] = [
@@ -33,6 +36,16 @@ export const ROUTES: RouteItem[] = [
     icon: <IonIcon src={accueil}></IonIcon>,
     component: StudentHome,
     tab: "home",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: AppFeature.Home,
+  },
+
+  {
+    title: "decharge",
+    icon: <IonIcon src={accueil}></IonIcon>,
+    component: DechargeSortieForm,
+    tab: "decharge",
     showInTabs: true,
     brand: [AppBrand.Ynov],
     feature: AppFeature.Home,
