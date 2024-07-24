@@ -12,6 +12,7 @@ import {
   IonList,
   IonItem,
   IonLabel,
+  useIonRouter,
   IonText
 } from '@ionic/react';
 import "./Retards.scss";
@@ -44,6 +45,11 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   //var de verif de l'etat du retard 
   const ifRetard = true;
 
+  const router = useIonRouter();
+
+  const goToScanQR = () => {
+    router.push('/tabs/qrcode', 'forward', 'push');
+  };
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab as 'actual' | 'cumul');
   };
@@ -80,9 +86,11 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
                 </p>
               </div>
               <div
-                className='btn_scanQR'>
-                <p>Scanner le code QR</p>
+                className='btn_scanQR'
+                onClick={goToScanQR}>
+                   Scanner QR Code
               </div>
+              
 
 
             </>
