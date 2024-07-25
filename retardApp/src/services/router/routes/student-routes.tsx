@@ -8,20 +8,24 @@ import actualites from "../../../assets/svg/icons/actualites.svg";
 import  retard  from "../../../assets/svg/icons/retards.svg";
 
 //import des pages 
-//retard & scan page   message confirmation || echec scan
+//::::RETARD::::SCAN:::JUSTIF RETARD::MESSAGE SCAN
 import RetardsTab from "../../../pages/logged/students/tabs/retards/Retards";
-import { MessageScanTab } from  "../../../pages/logged/students/tabs/MessageScan/MessageScan";
-
-
+//scan du code QR
 import ScanTab from "../../../pages/logged/students/tabs/scanQr/ScanPage"
+//justif retard
+import { LateJustify } from "../../../pages/logged/students/tabs/lateJustify/LateJustify";
+//message apres scan
+import { MessageScanTab } from  "../../../pages/logged/students/tabs/MessageScan/MessageScan";
+//:
+//ABSENCES::: JUSTIFICATIF::::: MESSAGE JUSTIF 
 //absences
-
-import { MessageJustif } from  "../../../pages/logged/students/tabs/MessageJustif/MessageJustif";
  import  AbsencesTab  from "../../../pages/logged/students/tabs/absences/Absences";
-import  ExampleTab  from "../../../pages/logged/students/tabs/example/Example";
-
+import { MessageJustif } from  "../../../pages/logged/students/tabs/MessageJustif/MessageJustif";
 //import justificatif
 import { JustifyTab } from "../../../pages/logged/students/tabs/justificatif/Justify";
+
+
+import  ExampleTab  from "../../../pages/logged/students/tabs/example/Example";
 import { StudentHome } from "../../../pages/logged/students/tabs/student-home/StudentHome";
 import { AppBrand } from "../../branding/branding.interfaces";
 import { AppFeature } from "../../user/interfaces/app-feature.enum";
@@ -50,26 +54,8 @@ export const ROUTES: RouteItem[] = [
     brand: [AppBrand.Ynov],
     feature: AppFeature.Example,
    },
-  {
-    title: "QR test",
-    icon: <IonIcon src={actualites}></IonIcon>,
-    component:ScanTab ,
-    tab: "qrcode",
-    showInTabs: false,
-    brand: [AppBrand.Ynov],
-    feature: AppFeature.Example,
-   },
-   
-  {
-    title: "Justificatif",
-    icon: <IonIcon icon={retard}></IonIcon>, 
-    component: JustifyTab,
-    tab: "justifs",
-    showInTabs: false,
-    brand: [AppBrand.Ynov],
-    feature: "Justificatif" as AppFeature,
-  },
- 
+  
+ ///////////RETARD|  SCAN |  MESSAGE DU SCAN/////////////////
   {
     title: "Retards",
     icon: <IonIcon icon={retard}></IonIcon>, 
@@ -80,6 +66,15 @@ export const ROUTES: RouteItem[] = [
     feature: "Retards" as AppFeature,
   },
   {
+    title: "JustifyLate",
+    icon: <IonIcon icon={retard}></IonIcon>, 
+    component: LateJustify,
+    tab: "justify-late",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: "JustifyLate" as AppFeature,
+  },
+  {
     title: "MessageScan",
     icon: <IonIcon icon={retard}></IonIcon>, 
     component: MessageScanTab,
@@ -88,6 +83,10 @@ export const ROUTES: RouteItem[] = [
     brand: [AppBrand.Ynov],
     feature: "MessageScan" as AppFeature,
   },
+
+
+  /////////////ABSENCES | JUSTIFICATION |MESSAGE DE JUSTIFICATION  //////////////
+  //absence
   {
     title: "Absences",
     icon: <IonIcon icon={absence}></IonIcon>, 
@@ -97,6 +96,17 @@ export const ROUTES: RouteItem[] = [
     brand: [AppBrand.Ynov],
     feature: "Absences" as AppFeature,
   },
+  //formilaire de justification
+  {
+    title: "JustifAbsence",
+    icon: <IonIcon icon={absence}></IonIcon>, 
+    component: JustifyTab,
+    tab: "justifs",
+    showInTabs: true,
+    brand: [AppBrand.Ynov],
+    feature: "Absences" as AppFeature,
+  },
+  //message de justification
   {
     title: "MessageJustif",
     icon: <IonIcon icon={absence}></IonIcon>, 

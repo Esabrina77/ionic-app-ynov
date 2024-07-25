@@ -19,9 +19,9 @@ import FileUploader from '../../../../../components/FileUploader/FileUploader';
 import PhotoCapture from '../../../../../components/PhotoCapture/PhotoCapture';
 import FileList from '../../../../../components/FileList/FileList';
 import AttachedFileSelector from "../../../../../components/AttachedFileSelector/AttachedFileSelector";
-import './justify.scss';
+import './LateJustify.scss';
 
-export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
+export const LateJustify: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [currentTab, setCurrentTab] = useState('unjustified');
@@ -90,20 +90,19 @@ export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
 
   return (
     <>
-      <Header title="Justifs Absence" showLogo />
+      <Header title="Justifs Retard" showLogo />
       <IonContent>
         <form onSubmit={handleSubmit} className='box_container'>
           <AttachedFileSelector>
           <IonText className="date_unjustify">
-        Absence le 30/05 de 09h15 à 17h15
-        07h00 manqués
+          Retard  le 30/05 au cours Appel d’Offre
+<p>Durée : <span className='danger'>10 min</span>  </p>
       </IonText>
             <ReasonSelector />
           </AttachedFileSelector>
           <AttachedFileSelector>
             <IonText className="p" id="attached-legend">
-              Justificatif pour le 30/05 de 09h15 à 17h15
-              07h00 manqués
+              Joindre des fichiers
             </IonText>
             <FileUploader onFileUpload={handleFileUpload} />
             <PhotoCapture onPhotoCapture={handlePhotoCapture} />
