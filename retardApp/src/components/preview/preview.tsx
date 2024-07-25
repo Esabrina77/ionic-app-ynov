@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Preview.scss";
+import "./preview.scss";
 
 interface PreviewProps {
   text: string;

@@ -6,34 +6,15 @@ import { getNameFromEmail } from "../../../../../components/emailsUtils/emailsUt
 import "./form.scss";
 
 export const DechargeSortieForm: React.FC = () => {
+  console.log('DechargeSortieForm opened');
   const [motif, setMotif] = useState("");
   const [signatureData, setSignatureData] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const signatureRef = useRef<any>(null);
 
-  // Exemple d'adresse e-mail qui sera utilisée pour l'envoi du PDF
-  //IMPORTANT: pour l'instant aucun moyen de récupérer une adresse email aléatoire, donc on utilise une adresse email fixe Solution a trouver
   const toEmail = 'noa.gambey@ynov.com';
-
-  // Récupération des données
   const { prenom, nom } = getNameFromEmail(toEmail);
-
-  // Affichage pour le débogage
-  console.log(`Adresse e-mail: ${toEmail}`);
-  console.log(`Prénom: ${prenom}`);
-  console.log(`Nom: ${nom}`);
-
-  useEffect(() => {
-    console.log('DechargeSortieForm mounted');
-
-    return () => {
-      console.log('DechargeSortieForm unmounted');
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log('DechargeSortieForm rendered');
-  });
+  console.log('DechargeSortieForm prenom:', prenom);
 
   const save = () => {
     if (motif.trim() === "") {
@@ -79,3 +60,5 @@ export const DechargeSortieForm: React.FC = () => {
     </>
   );
 };
+
+export default React.memo(DechargeSortieForm);
