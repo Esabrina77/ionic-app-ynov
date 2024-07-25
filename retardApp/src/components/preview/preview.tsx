@@ -4,16 +4,17 @@ import "./Preview.scss";
 interface PreviewProps {
   text: string;
   imageBase64: string | null;
+  prenom: string;
+  nom: string;
 }
 
-const Preview: React.FC<PreviewProps> = ({ text, imageBase64 }) => {
+const Preview: React.FC<PreviewProps> = ({ text, imageBase64, prenom, nom }) => {
   return (
     <div className="Preview">
       <div className="PreviewContent">
         <p>AIX YNOV CAMPUS</p>
         <p>Décharge pour sortie anticipée</p>
-        <p>Je soussigné(e) (nom et prénom de l’étudiant) : ............................................</p>
-        <p>en classe de ............................................</p>
+        <p>Je soussigné(e) {prenom} {nom}, en classe de ............................................</p>
         <p>
           décharge AIX YNOV CAMPUS, ainsi que le professeur/intervenant responsable, de toutes responsabilités en cas d’incident éventuel pouvant survenir hors établissement, suite à la sortie prématurée du cours à ce jour le
           ................../............./.................. à ...............h.................
