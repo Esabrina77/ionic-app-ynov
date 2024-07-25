@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from "../../../../../components/ui/Header";
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
 import TabSwitcher from '../../../../../components/TabSwitcher/TabSwitcher';
 import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper";
 import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
+import { apiService } from '../../../../../services/api/api.service';
+import { Retard } from '../../../../../services/api/api.interfaces';
 
 import {
   IonContent,
@@ -17,39 +19,44 @@ import {
 } from '@ionic/react';
 import "./Retards.scss";
 
-const retards = [
-  { date: '30/05', time: '08h30 à 12h30', duration: 10 },
-  { date: '30/05', time: '13h30 à 17h30', duration: 25 },
-  { date: '15/05', time: '08h30 à 12h30', duration: 10 },
-  { date: '09/05', time: '08h30 à 12h30', duration: 10 },
-  { date: '07/05', time: '13h30 à 17h30', duration: 25 },
-  { date: '25/04', time: '08h30 à 12h30', duration: 10 },
-];
-const cours = "Appel d'offre";
-
-
-
-
 export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
   const [currentTab, setCurrentTab] = useState<'actual' | 'cumul'>('actual');
+  const [retards, setRetards] = useState<Retard[]>([]);
+  const [currentRetard, setCurrentRetard] = useState<Retard | null>(null);
 
   useIonViewDidEnter(() => {
     setVisible(true);
   });
+
   useIonViewWillLeave(() => {
     setVisible(false);
   });
-  //total du retard
-  const totalRetard = retards.reduce((total, retard) => total + retard.duration, 0);
-  //var de verif de l'etat du retard 
-  const ifRetard = true;
+
+  useEffect(() => {
+    fetchRetards();
+  }, []);
+
+  const fetchRetards = async () => {
+    try {
+      const data = await apiService.getRetards();
+      setRetards(data);
+      // Supposons que le retard actuel est le premier retard non justifié
+      setCurrentRetard(data.find(retard => !retard.isJustified) || null);
+    } catch (error) {
+      console.error('Failed to fetch retards:', error);
+    }
+  };
+
+  const totalRetard = retards.reduce((total, retard) => total + retard.missedHours * 60, 0);
+  const ifRetard = currentRetard !== null;
 
   const router = useIonRouter();
 
   const goToScanQR = () => {
     router.push('/tabs/qrcode', 'forward', 'push');
   };
+
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab as 'actual' | 'cumul');
   };
@@ -68,21 +75,18 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
         />
         {currentTab === 'actual' ? (
           ifRetard ? (
-
             <>
               <HeaderRadius>
                 <IonText className="danger">
                   Vous êtes en retard
                 </IonText>
-
               </HeaderRadius>
-             
               <div className='tooltip'>
                 <p className='retardsummary'> Votre cours
-                  <span className='course'> {cours}
+                  <span className='course'> {currentRetard.missedLectures.join(', ')}
                   </span> a commencé.
                 </p>
-                <p> Votre retard est de : <span className='danger'> 10 </span> min
+                <p> Votre retard est de : <span className='danger'> {currentRetard.missedHours * 60} </span> min
                 </p>
               </div>
               <div
@@ -90,9 +94,6 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
                 onClick={goToScanQR}>
                    Scanner QR Code
               </div>
-              
-
-
             </>
           ) : (
             <HeaderRadius>
@@ -101,7 +102,6 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
               </IonText>
             </HeaderRadius>
           )
-          ////////////////////////////////////
         ) : (
           <>
             <HeaderRadius>
@@ -114,15 +114,15 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
             </HeaderRadius>
             <IonList>
               <div className='list-items'>
-                {retards.map((retard, index) => (
-                  <IonItem key={index}>
+                {retards.map((retard) => (
+                  <IonItem key={retard.id}>
                     <IonLabel>
                       <h2>Cours du
-                        <span className='absence_date'> {retard.date} </span> de
-                        <span className='absence_time'> {retard.time}</span>
+                        <span className='absence_date'> {new Date(retard.date_debut).toLocaleDateString()} </span> de
+                        <span className='absence_time'> {new Date(retard.date_debut).toLocaleTimeString()} à {new Date(retard.date_fin).toLocaleTimeString()}</span>
                       </h2>
                       <p> Durée du retard :
-                        <span className='absence_duration'> {retard.duration} </span>
+                        <span className='absence_duration'> {retard.missedHours * 60} </span>
                         min
                       </p>
                     </IonLabel>
