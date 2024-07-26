@@ -1,0 +1,30 @@
+<div class="container" #root [style.background-image]="background">
+    <mat-card>
+        <mat-card-header>
+            <div>
+                <img [src]="brandingService.catalog.images.logo" alt="Logo" />
+                <div class="text">Choisissez votre <span class="primary">espace</span></div>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-radio-group [(ngModel)]="selectedWorkspace">
+                @for (workspace of layoutService.availableWorkspaces; track workspace) {
+                <mat-card class="workspace-card">
+                    <mat-card-content>
+                        <div class="workspace-button">
+                            <div>
+                                {{layoutService.getWorkspaceName(workspace)}}
+                            </div>
+                            <mat-radio-button [value]="workspace"></mat-radio-button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                }
+            </mat-radio-group>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-flat-button color="primary" (click)="selectWorkspace()"
+                [disabled]="!selectedWorkspace">Valider</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

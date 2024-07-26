@@ -1,0 +1,130 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@import "./styles/m3-theme.scss";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+@include mat.core();
+// Be sure that you only ever include this mixin once!
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  @include mat.core-theme($light-theme);
+  @include mat.all-component-themes($light-theme);
+}
+
+html.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// ANGULAR MATERIAL STYLE OVERRIDE
+.menu-item .mat-expansion-panel-content .mat-expansion-panel-body {
+  padding: 0 !important;
+  padding-right: 8px !important;
+}
+
+.mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// RETROCOMPAT M2
+$theme: mat.define-theme();
+
+button.mat-secondary {
+  @include mat.button-color($theme, $color-variant: secondary);
+}
+button.mat-error {
+  @include mat.button-color($theme, $color-variant: error);
+}
+.mat-mdc-snack-bar-container {
+  backdrop-filter: blur(5px);
+  &.success {
+    --mdc-snackbar-container-color: #00867b60;
+    --mat-mdc-snack-bar-button-color: mat.get-theme-color(
+      m3-theme.$light-theme,
+      secondary,
+      60
+    );
+    --mdc-snackbar-supporting-text-color: mat.get-theme-color(
+      m3-theme.$light-theme,
+      secondary,
+      60
+    );
+  }
+  &.warn {
+    --mdc-snackbar-container-color: #ffcc0060;
+    --mat-mdc-snack-bar-button-color: mat.get-theme-color(
+      m3-theme.$light-theme,
+      secondary,
+      60
+    );
+    --mdc-snackbar-supporting-text-color: mat.get-theme-color(
+      m3-theme.$light-theme,
+      secondary,
+      60
+    );
+  }
+  &.error {
+    --mdc-snackbar-container-color: #cc330060;
+    --mat-mdc-snack-bar-button-color: mat.get-theme-color(
+      m3-theme.$light-theme,
+      secondary,
+      60
+    );
+    --mdc-snackbar-supporting-text-color: mat.get-theme-color(
+      m3-theme.$light-theme,
+      secondary,
+      60
+    );
+  }
+}
+
+// RETROCOMPAT M2
+// LEGACY MULTI THEMING
+// LEGACY MULTI THEMING
+// LEGACY MULTI THEMING
+// USE BRANDINGSERVICE.STYLE AND SCOPED STYLES FOR NEW COMPONENTS
+html mat-sidenav {
+  background-color: mat.get-theme-color($light-theme, primary, 60)!important;
+}
+.collapsed-menu {
+  background-color: mat.get-theme-color($light-theme, primary, 60);
+}
+.avatar {
+  background-color: mat.get-theme-color($light-theme, primary, 80);
+}
+.workspace-name {
+  color: mat.get-theme-color($light-theme, primary, 60);
+}
+.mat-expansion-panel.menu-item {
+  background-color: mat.get-theme-color($light-theme, primary, 60);
+}
+html .link-active:not(.mat-expanded) {
+  background-color: rgba(
+    mat.get-theme-color($light-theme, primary, 30),
+    0.4
+  ) !important;
+}
+// LEGACY MULTI THEMING
+// LEGACY MULTI THEMING
+// LEGACY MULTI THEMING
+// SIDENAV

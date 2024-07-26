@@ -1,0 +1,32 @@
+<mat-accordion>
+    <div class="menu-container" [class.collapsed]="collapsed">
+        <ng-container *ngFor="let item of menuItems">
+            <a mat-list-item *ngIf="isRootItem(item); else accordion" [routerLink]="item.route"
+                routerLinkActive="link-active" class="menu-item mat-mdc-list-item-interactive">
+                <div class="link-content">
+                    <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                    <span mat-line *ngIf="!collapsed">{{item.title}}</span>
+                </div>
+            </a>
+            <ng-template #accordion>
+                <mat-expansion-panel class="menu-item">
+                    <mat-expansion-panel-header [class.link-active]="hasChildActive(item.route)">
+                        <mat-panel-title>
+                            <mat-icon>{{item.icon}}</mat-icon> <span mat-line *ngIf="!collapsed">{{item.title}}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item *ngFor="let child of item.children"
+                            [routerLink]="getPath(item.route, child.route)" routerLinkActive="link-active" class="link">
+                            <div class="link-content" [class.collapsed]="collapsed">
+                                <mat-icon [style.display]="!collapsed ? 'none' : 'block'" mat-list-icon
+                                    [class.collapsed]="collapsed">{{child.icon}}</mat-icon>
+                                <span mat-line *ngIf="!collapsed" [class.collapsed]="collapsed">{{child.title}}</span>
+                            </div>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </ng-template>
+        </ng-container>
+    </div>
+</mat-accordion>

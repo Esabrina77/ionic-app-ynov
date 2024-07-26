@@ -1,0 +1,25 @@
+<mat-toolbar class="header">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onToggleMenu()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <div (click)="onLogoClick()" style="display: flex; align-items: center;">
+        <img [src]="brandingService.catalog.images.logo" class="ynov-logo" />
+        <div class="workspace-name">{{layoutService.getWorkspaceName(layoutService.selectedWorkspace)}}</div>
+    </div>
+    <div class="right-group">
+        <div *ngIf="layoutService.availableWorkspaces.length > 1">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon fontIcon="more_vert"></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let workspace of layoutService.availableWorkspaces"
+                    (click)="layoutService.selectWorkspace(workspace)">
+                    {{layoutService.getWorkspaceName(workspace)}}
+                </button>
+            </mat-menu>
+        </div>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onLogoutClick()">
+            <mat-icon aria-label="Side nav toggle icon">logout</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>

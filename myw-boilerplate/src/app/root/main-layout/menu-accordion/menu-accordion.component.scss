@@ -1,0 +1,66 @@
+@use "@angular/material" as mat;
+@use "../../../../styles/m3-theme" as m3-theme;
+
+a {
+  text-decoration: none;
+}
+
+.menu-container {
+  padding-top: 16px;
+}
+
+mat-panel-title {
+  font-weight: normal !important;
+}
+.ng-star-inserted {
+  margin-left: 8px;
+}
+
+.mat-mdc-list-item,
+mat-expansion-panel {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  border-radius: 25px 0 0 25px !important;
+}
+
+.mat-mdc-list-item.link {
+  max-width: calc(100% - 8px);
+}
+
+.menu-item {
+  & * {
+    color: white;
+  }
+  margin-top: 16px !important;
+  & mat-icon {
+    padding-right: 8px;
+  }
+  & .link-content {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    &.collapsed {
+      margin-left: 0;
+      padding-left: 0;
+    }
+    border-radius: 25px;
+    &.root {
+      margin-top: 8px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+}
+::ng-deep .collapsed .mat-expansion-indicator {
+  display: none !important;
+}
+
+mat-divider {
+  margin: 8px 0;
+  margin-bottom: 16px;
+}
+
+mat-expansion-panel-header {
+  transition: background-color 0.3s ease-in-out;
+  margin-left: 0 !important;
+}

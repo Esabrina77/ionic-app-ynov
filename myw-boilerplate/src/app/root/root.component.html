@@ -1,0 +1,7 @@
+<ng-template #loading *ngIf="loading; else loaded "><app-loading-screen /></ng-template>
+<ng-template #loaded>
+    <app-app-error #deny *ngIf="denyApp; else allow" />
+    <ng-template #allow>
+        <router-outlet />
+    </ng-template>
+</ng-template>

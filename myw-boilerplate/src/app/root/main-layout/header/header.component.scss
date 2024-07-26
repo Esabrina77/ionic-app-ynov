@@ -1,0 +1,34 @@
+@use '@angular/material' as mat;
+@use "../../../../styles/m3-theme" as m3-theme;
+
+.ynov-logo {
+  width: 120px;
+  cursor: pointer;
+}
+
+.workspace-name {
+  font-size: 20px;
+  font-style: italic;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  & .ynov-logo {
+    margin-top: 8px;
+  }
+}
+.right-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  height: 65px;
+  & mat-icon {
+    color: black;
+  }
+  box-shadow: 0 0 4px 0 inset rgba(0, 0, 0, 0.4);
+}

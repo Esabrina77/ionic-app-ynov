@@ -1,0 +1,85 @@
+@use "@angular/material" as mat;
+@import "../../../styles/variables.scss";
+
+:host {
+  --mat-sidenav-container-shape: 8px;
+}
+
+mat-sidenav {
+  margin-top: calc($app-header-height);
+  z-index: 2000;
+}
+
+mat-sidenav-content {
+  height: 100%;
+}
+mat-drawer-container {
+  flex: 1;
+  height: 100%;
+}
+mat-sidenav-container {
+  height: calc(100% - $app-header-height) !important;
+}
+
+app-drawer {
+  flex: 1;
+  display: flex;
+}
+
+.app-layout-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sidenav-container {
+  overscroll-behavior-y: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.mat-drawer-wrapper {
+  margin-top: calc($app-drawer-offset-top);
+  z-index: 3 !important;
+}
+.mat-drawer-content {
+  height: 100%;
+  overscroll-behavior-y: none;
+}
+::ng-deep .mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+v .progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  height: 100vh;
+}
+.outlet-container {
+  overscroll-behavior-y: auto;
+  padding: 20px;
+  margin-left: 0px;
+  transition: margin-left 0.2s ease-in-out;
+  height: 100%;
+}
+
+.outlet-container.collapsed.desktop {
+  margin-left: $app-drawer-width !important;
+}
+.collapsed-menu {
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  width: $app-drawer-width;
+  position: absolute;
+  top: calc($app-header-height + $app-drawer-offset-top);
+  bottom: 0;
+  z-index: 1;
+  transition: opacity 0.15s ease-in-out;
+  &.collapsed.desktop {
+    visibility: visible;
+    opacity: 1;
+  }
+}

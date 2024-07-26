@@ -1,0 +1,31 @@
+@if (userService.user) {
+<div style="height: 100%">
+    @if(!layoutService.selectedWorkspace || !layoutService.workspaceAllowed) {
+    <app-workspace-selector />
+    } @else {
+    <div style="height: 100%;">
+        <app-header (logoutClick)="logout()" (toggleMenu)="toggleDrawer()" (logoClick)="home()" />
+        <mat-sidenav-container class="sidenav-container" autosize>
+            <mat-sidenav #drawer id="sidenav" fixedInViewport
+                [attr.role]="(layoutService.isHandset$ | async) ? 'dialog' : 'navigation'"
+                [opened]="(layoutService.isHandset$| async) === false ? true : layoutService.isExpanded" mode="side"
+                disableClose style="width: 260px">
+                <app-drawer [user]="userService.user" [topMenuItems]="topMenuItems" [bottomMenuItems]="bottomMenuItems"
+                    [collapsed]="!layoutService.isExpanded" />
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <div class="outlet-container">
+                    <router-outlet />
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+    }
+</div>
+} @else {
+<ng-template #loadingIndicator>
+    <div class="progress-container">
+        <mat-progress-spinner mode="indeterminate" />
+    </div>
+</ng-template>
+}
