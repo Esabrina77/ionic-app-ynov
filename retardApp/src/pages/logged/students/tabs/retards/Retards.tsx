@@ -1,3 +1,4 @@
+// src/pages/logged/students/tabs/retards/Retards.tsx
 import React, { useState, useEffect } from 'react';
 import { Header } from "../../../../../components/ui/Header";
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
@@ -5,7 +6,9 @@ import TabSwitcher from '../../../../../components/TabSwitcher/TabSwitcher';
 import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper";
 import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
 import { apiService } from '../../../../../services/api/api.service';
+import { apiCoursService } from '../../../../../services/apiCours/apiCours.service';
 import { Retard } from '../../../../../services/api/api.interfaces';
+import { Course } from '../../../../../services/apiCours/apiCours.interfaces';
 
 import {
   IonContent,
@@ -23,7 +26,10 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
   const [currentTab, setCurrentTab] = useState<'actual' | 'cumul'>('actual');
   const [retards, setRetards] = useState<Retard[]>([]);
-  const [currentRetard, setCurrentRetard] = useState<Retard | null>(null);
+  const [retardDuration, setRetardDuration] = useState(0);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [ifRetard, setIfRetard] = useState(false);
+  const [scanValid, setScanValid] = useState(false);
 
   useIonViewDidEnter(() => {
     setVisible(true);
@@ -34,22 +40,26 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   });
 
   useEffect(() => {
-    fetchRetards();
+    fetchCourses();
+    checkRetard();
+    checkScanValidity();
+    calculateRetardDuration();
   }, []);
 
-  const fetchRetards = async () => {
-    try {
-      const data = await apiService.getRetards();
-      setRetards(data);
-      // Supposons que le retard actuel est le premier retard non justifié
-      setCurrentRetard(data.find(retard => !retard.isJustified) || null);
-    } catch (error) {
-      console.error('Failed to fetch retards:', error);
-    }
+  const fetchCourses = () => {
+    const courseData = apiCoursService.getCourseData();
+    setCourses(courseData.courses);
+  };
+
+  const checkRetard = () => {
+    setIfRetard(apiCoursService.checkIfRetard());
+  };
+
+  const checkScanValidity = () => {
+    setScanValid(apiCoursService.checkIfScanValid());
   };
 
   const totalRetard = retards.reduce((total, retard) => total + retard.missedHours * 60, 0);
-  const ifRetard = currentRetard !== null;
 
   const router = useIonRouter();
 
@@ -59,6 +69,11 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
 
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab as 'actual' | 'cumul');
+  };
+
+  const calculateRetardDuration = () => {
+    const duration = apiCoursService.calculateRetardDuration();
+    setRetardDuration(duration);
   };
 
   return (
@@ -83,17 +98,25 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
               </HeaderRadius>
               <div className='tooltip'>
                 <p className='retardsummary'> Votre cours
-                  <span className='course'> {currentRetard.missedLectures.join(', ')}
+                  <span className='course'> {apiCoursService.getCurrentCourse()?.description || 'Cours actuel'}
                   </span> a commencé.
                 </p>
-                <p> Votre retard est de : <span className='danger'> {currentRetard.missedHours * 60} </span> min
+                <p> Votre retard est de : <span className='danger'> {retardDuration} </span> min
                 </p>
               </div>
-              <div
-                className='btn_scanQR'
-                onClick={goToScanQR}>
-                   Scanner QR Code
-              </div>
+              {scanValid ? (
+                <div
+                  className='btn_scanQR'
+                  onClick={goToScanQR}>
+                  Scanner QR Code
+                </div>
+              ) : (
+                <HeaderRadius>
+                  <IonText className="danger">
+                    Le temps de scan est expiré
+                  </IonText>
+                </HeaderRadius>
+              )}
             </>
           ) : (
             <HeaderRadius>

@@ -33,10 +33,11 @@ const ScanPage: React.FC = () => {
       stopScan();
       try {
         const scannedData = JSON.parse(result.content);
+        //verifier si le QR code est valide pour le check du retard
         if ('idStatusScan' in scannedData) { 
             // Encodez les données scannées dans l'URL
-          const encodedData = encodeURIComponent(JSON.stringify(scannedData));
-          router.push(`/tabs/message-scan?data=${encodedData}`, 'forward', 'push');
+           // const encodedData = encodeURIComponent(JSON.stringify(scannedData));
+          router.push(`tabs/justify-late?`, 'forward', 'push');
         } else {
           present({
             message: "Ce QR code n'est pas valide pour le check de retard.",

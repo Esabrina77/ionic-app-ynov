@@ -30,6 +30,7 @@ import { StudentHome } from "../../../pages/logged/students/tabs/student-home/St
 import { AppBrand } from "../../branding/branding.interfaces";
 import { AppFeature } from "../../user/interfaces/app-feature.enum";
 import { RouteItem } from "../interfaces/tab-item.interface";
+import { qrCode } from "ionicons/icons";
 
 // SVGS
 
@@ -64,6 +65,15 @@ export const ROUTES: RouteItem[] = [
     showInTabs: true,
     brand: [AppBrand.Ynov],
     feature: "Retards" as AppFeature,
+  },
+  {
+    title: "ScanPage",
+    icon: <IonIcon icon={retard}></IonIcon>, 
+    component: ScanTab,
+    tab: "qrcode",
+    showInTabs: false,
+    brand: [AppBrand.Ynov],
+    feature: "ScanPage" as AppFeature,
   },
   {
     title: "JustifyLate",
@@ -102,7 +112,7 @@ export const ROUTES: RouteItem[] = [
     icon: <IonIcon icon={absence}></IonIcon>, 
     component: JustifyTab,
     tab: "justifs",
-    showInTabs: true,
+    showInTabs: false,
     brand: [AppBrand.Ynov],
     feature: "Absences" as AppFeature,
   },

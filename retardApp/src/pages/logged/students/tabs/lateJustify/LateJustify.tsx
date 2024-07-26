@@ -1,4 +1,4 @@
-import { Camera, CameraResultType } from '@capacitor/camera';
+  import { Camera, CameraResultType } from '@capacitor/camera';
 import { useState } from "react";
 import {
   IonContent,
@@ -15,9 +15,6 @@ import {
 import { Header } from "../../../../../components/ui/Header";
 import { TabWrappedComponent } from "../../../../../components/utils/TabWrapper";
 import ReasonSelector from '../../../../../components/ReasonSelector/ReasonSelector';
-import FileUploader from '../../../../../components/FileUploader/FileUploader';
-import PhotoCapture from '../../../../../components/PhotoCapture/PhotoCapture';
-import FileList from '../../../../../components/FileList/FileList';
 import AttachedFileSelector from "../../../../../components/AttachedFileSelector/AttachedFileSelector";
 import './LateJustify.scss';
 
@@ -99,20 +96,6 @@ export const LateJustify: React.FC<TabWrappedComponent> = ({ isTab }) => {
 <p>Durée : <span className='danger'>10 min</span>  </p>
       </IonText>
             <ReasonSelector />
-          </AttachedFileSelector>
-          <AttachedFileSelector>
-            <IonText className="p" id="attached-legend">
-              Joindre des fichiers
-            </IonText>
-            <FileUploader onFileUpload={handleFileUpload} />
-            <PhotoCapture onPhotoCapture={handlePhotoCapture} />
-            {files.length > 0 && (
-              <FileList
-                files={files}
-                onFileOpen={openFile}
-                onFileDelete={handleDeleteFile}
-              />
-            )}
           </AttachedFileSelector>
 
           <IonButton type="submit" className='submit'>Envoyer</IonButton>

@@ -20,8 +20,6 @@ import {
   useIonRouter,
   IonLabel
 } from '@ionic/react';
-import { color } from 'framer-motion';
-import { State } from 'ionicons/dist/types/stencil-public-runtime';
 
 // fake data injustify absence
 const absencesInjustify = [

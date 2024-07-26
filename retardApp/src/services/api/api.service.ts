@@ -1,12 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { Retard } from './api.interfaces';
+import { Absence } from './api.interfaces';
 
 class ApiService {
   private api: AxiosInstance;
 
   constructor() {
     this.api = axios.create({
-      baseURL: '/api',  // Utilisez le chemin relatif pour le proxy
+      baseURL: '/api',  //chemin relatif pour le proxy || probleme avec cors
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
@@ -67,6 +68,63 @@ class ApiService {
       await this.api.delete(`/retard/${id}`);
     } catch (error) {
       console.error(`Error deleting retard ${id}:`, error);
+      throw error;
+    }
+  }
+
+  //////////absences endpoints
+  async getAbsences(): Promise<Absence[]> {
+    try {
+      const response = await this.api.get('/abs');
+      console.log('API Response:', response.data);
+      
+      if (Array.isArray(response.data)) {
+        return response.data.map((item: any) => item.props);
+      } else {
+        console.error('Unexpected response structure:', response.data);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error fetching absences:', error);
+      throw error;
+    }
+  }
+
+  async createAbsence(absenceData: Omit<Absence, 'id' | 'createdAt' | 'updatedAt'>): Promise<Absence> {
+    try {
+      const response = await this.api.post('/abs', absenceData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating absence:', error);
+      throw error;
+    }
+  }
+
+  async getAbsenceByEtudiantId(etudiantId: number): Promise<Absence[]> {
+    try {
+      const response = await this.api.get(`/abs/${etudiantId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching absences for student ${etudiantId}:`, error);
+      throw error;
+    }
+  }
+
+  async updateAbsence(id: string, absenceData: Partial<Absence>): Promise<Absence> {
+    try {
+      const response = await this.api.patch(`/abs/${id}`, absenceData);
+      return response.data;
+    } catch (error) {
+      console.error(`Error updating absence ${id}:`, error);
+      throw error;
+    }
+  }
+
+  async deleteAbsence(id: string): Promise<void> {
+    try {
+      await this.api.delete(`/abs/${id}`);
+    } catch (error) {
+      console.error(`Error deleting absence ${id}:`, error);
       throw error;
     }
   }
