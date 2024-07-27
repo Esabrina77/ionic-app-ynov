@@ -12,8 +12,8 @@
       {
         "id": "2",
         "cours_id": "20",
-        "date_debut": "2024-07-26T14:00:00",
-        "date_fin": "2024-07-26T18:00:00",
+        "date_debut": "2024-07-27T16:20:00",
+        "date_fin": "2024-07-27T18:00:00",
         "salle": "A2",
         "prof": "M. Lefevre",
         "description": "Encodage numérique"

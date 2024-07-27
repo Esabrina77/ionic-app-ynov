@@ -14,14 +14,33 @@ import {
 import { useIonRouter } from '@ionic/react';
 import { useEffect, useState } from "react";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
- import "./ScanPage.css";
+import "./ScanPage.css";
+import forge from 'node-forge';
 
 const ScanPage: React.FC = () => {
   const [err, setErr] = useState<string>();
   const [hideBg, setHideBg] = useState(false);
   const [present] = useIonAlert();
   const router = useIonRouter();
-  
+
+  const private_key = `-----BEGIN RSA PRIVATE KEY-----
+MIIBPAIBAAJBAN5xF1qi7bOd25l25apCJCvTFCz3buOlEsiCc/vwrr1EacpWtT/P
+xMWdSYUwyotSyAbCAIFz7rrnweB6Mvpd9jECAwEAAQJAFG3oii96i0uNNpv/3dIz
+Rj8dlD+pVIj9n6KzikkBk2pAMekDdofAqMsHRz7a0E3tVJ377kyISYJDBebV8vIG
+0QIhAPx8AHHa0VTZ7JS1MvkOslZvyKiQkc3V7GRCI/yLais9AiEA4YoAHsBX6por
+c1gWkcRjo3TkesM6D0jS2kXVbqChdgUCIQD6Bcli9a8JeWv/rpe1bkpHshZgZhkc
+XdTjS2PbeCtAeQIhAJfNudz423Plht9g5/f+9o2bbPmQE7Eb9AfEPy7x4Rs9AiEA
+9nXhX926prDeq0e9r8rR2cvpUaqhLMGz+zFIyJcsRHo=
+-----END RSA PRIVATE KEY-----
+`;
+
+  function decryptRSA(data: string, private_key: any): string {
+    var key = forge.pki.privateKeyFromPem(private_key);
+    var result = key.decrypt(data);
+    console.log("Decrypted: ", result);
+    return result;
+  }
+
   const startScan = async () => {
     console.log("Starting scan...");
     BarcodeScanner.hideBackground();
@@ -33,11 +52,19 @@ const ScanPage: React.FC = () => {
       stopScan();
       try {
         const scannedData = JSON.parse(result.content);
-        //verifier si le QR code est valide pour le check du retard
-        if ('idStatusScan' in scannedData) { 
-            // Encodez les données scannées dans l'URL
-           // const encodedData = encodeURIComponent(JSON.stringify(scannedData));
-          router.push(`tabs/justify-late?`, 'forward', 'push');
+        if ('SalutASamy' in scannedData) {
+          const encryptedData = scannedData.SalutASamy.toString();
+          const decryptedData = decryptRSA(encryptedData, private_key);
+          console.log(decryptedData);
+
+          if ('idStatusScan' in scannedData) {
+            router.push(`tabs/justify-late?`, 'forward', 'push');
+          } else {
+            present({
+              message: "Ce QR code n'est pas valide pour le check de retard.",
+              buttons: ["OK"],
+            });
+          }
         } else {
           present({
             message: "Ce QR code n'est pas valide pour le check de retard.",
@@ -54,7 +81,6 @@ const ScanPage: React.FC = () => {
       console.log("No content found.");
     }
   };
-
 
   const stopScan = () => {
     console.log("Stopping scan...");
