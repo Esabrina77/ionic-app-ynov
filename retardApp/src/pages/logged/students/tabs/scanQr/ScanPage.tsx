@@ -52,19 +52,12 @@ XdTjS2PbeCtAeQIhAJfNudz423Plht9g5/f+9o2bbPmQE7Eb9AfEPy7x4Rs9AiEA
       stopScan();
       try {
         const scannedData = JSON.parse(result.content);
-        if ('SalutASamy' in scannedData) {
+        if ('SalutASamy' in scannedData && 'idStatusScan' in scannedData) { 
+      
           const encryptedData = scannedData.SalutASamy.toString();
           const decryptedData = decryptRSA(encryptedData, private_key);
           console.log(decryptedData);
-
-          if ('idStatusScan' in scannedData) {
-            router.push(`tabs/justify-late?`, 'forward', 'push');
-          } else {
-            present({
-              message: "Ce QR code n'est pas valide pour le check de retard.",
-              buttons: ["OK"],
-            });
-          }
+          router.push(`tabs/justify-late?`, 'forward', 'push');
         } else {
           present({
             message: "Ce QR code n'est pas valide pour le check de retard.",
