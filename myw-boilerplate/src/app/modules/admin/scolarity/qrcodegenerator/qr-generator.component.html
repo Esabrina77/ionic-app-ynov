@@ -1,0 +1,5 @@
+<div class="container">
+    <h1>QR Code Generator</h1>
+    <button (click)="generateQrCode()">Generate QR Code</button>
+    <qrcode [qrdata]="qrData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>

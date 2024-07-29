@@ -21,7 +21,7 @@ export const routes: Routes = [
       {
         path: 'qrcode',
         loadComponent: () =>
-          import('./qrcode/qrcode.component').then((m) => m.QrcodeComponent),
+          import('./qrcodegenerator/qr-generator.component').then((m) => m.QrGeneratorComponent),
       },
     ],
   },
