@@ -1,1 +1,10 @@
-<p>retard works!</p>
+<div class="retards-container">
+  <h1>List of Retards</h1>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <ul *ngIf="retards.length">
+    <li *ngFor="let retard of retards">
+      <strong>ID:</strong> {{ retard.props.id }} - <strong>Annee_ID:</strong> {{ retard.props.annee_id }} - <strong>Etudiant:</strong> {{ retard.props.etudiant_id }}
+    </li>
+  </ul>
+  <div *ngIf="!retards.length && !errorMessage">No retards found.</div>
+</div>

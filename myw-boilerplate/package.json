@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^18.1.1",
     "@angular/platform-browser-dynamic": "^18.1.1",
     "@angular/router": "^18.1.1",
+    "angularx-qrcode": "^18.0.1",
     "ng-qrcode": "^18.0.0",
     "ngx-qrcode": "^0.1.0-rc.1",
     "rxjs": "~7.8.0",
