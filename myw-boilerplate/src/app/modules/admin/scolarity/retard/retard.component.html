@@ -1,10 +1,25 @@
 <div class="retards-container">
-  <h1>List of Retards</h1>
+  <h1>List of retards</h1>
+
+  <!-- Dropdown for selecting user names -->
+  <div *ngIf="uniqueUsers.length" class="retards-dropdown">
+    <label for="retardsSelect">Select a Student:</label>
+    <select id="retardsSelect" [(ngModel)]="selectedAbsId" (change)="onUserSelect($event)">
+      <option *ngFor="let user of uniqueUsers" [value]="user.props.ynov_id">
+        {{ getFullNameById(user.props.ynov_id) }}
+      </option>
+    </select>
+  </div>
+
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  <ul *ngIf="retards.length">
-    <li *ngFor="let retard of retards">
-      <strong>ID:</strong> {{ retard.props.id }} - <strong>Annee_ID:</strong> {{ retard.props.annee_id }} - <strong>Etudiant:</strong> {{ retard.props.etudiant_id }}
+
+  <ul *ngIf="filteredRetards.length">
+    <li *ngFor="let retard of filteredRetards">
+      <strong>ID:</strong> {{ retard.props.id }} -
+      <strong>Annee_ID:</strong> {{ retard.props.annee_id }} -
+      <strong>Etudiant:</strong> {{ retard.props.etudiant_id }}
     </li>
   </ul>
-  <div *ngIf="!retards.length && !errorMessage">No retards found.</div>
+
+  <div *ngIf="!filteredRetards.length && !errorMessage">No retards found.</div>
 </div>
