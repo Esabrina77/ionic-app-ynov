@@ -1,20 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import Preview from '../preview/preview';
-import { getNameFromEmail } from "../emailsUtils/emailsUtils";
+import Preview from '../Preview/preview';
 import './Pdf.scss';
 
 interface PdfProps {
   text: string;
   imageBase64: string | null;
   showPreview: boolean;
-  toEmail: string;
+  prenom: string;
+  nom: string;
+  promotion: string;
 }
 
-const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, toEmail }) => {
+const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, prenom, nom, promotion }) => {
   const previewRef = useRef<HTMLDivElement>(null);
-  const { prenom, nom } = getNameFromEmail(toEmail);
 
   useEffect(() => {
     if (showPreview) {
@@ -23,9 +23,6 @@ const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, toEmail }) =>
         html2canvas(input)
           .then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            const imgElement = document.createElement('img');
-            imgElement.src = imgData;
-            document.body.appendChild(imgElement);
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgProps = pdf.getImageProperties(imgData);
             const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -40,7 +37,7 @@ const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, toEmail }) =>
           });
       }
     }
-  }, [showPreview]);
+  }, [showPreview, prenom, nom]);
 
   const sendPdfToServer = (pdfData: string, prenom: string, nom: string) => {
     fetch('http://localhost:3000/send-email', {
@@ -64,7 +61,7 @@ const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, toEmail }) =>
       {showPreview && (
         <div className='Pdf'>
           <div ref={previewRef}>
-            <Preview text={text} imageBase64={imageBase64} prenom={prenom} nom={nom} />
+            <Preview text={text} imageBase64={imageBase64} prenom={prenom} nom={nom} promotion={promotion} />
           </div>
         </div>
       )}
