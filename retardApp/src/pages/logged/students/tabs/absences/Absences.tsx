@@ -23,26 +23,26 @@ import {
 
 // fake data injustify absence
 const absencesInjustify = [
-  { date: '30/05', time: '08h30 à 12h30', duration: 2 ,state: 'unjustified'},
-  { date: '30/05', time: '13h30 à 17h30', duration: 4, state: 'treatment' },
-  { date: '15/05', time: '08h30 à 12h30', duration: 4, state: 'refused' },
-  { date: '09/05', time: '08h30 à 12h30', duration: 4, state: 'unjustified' },
-  { date: '07/05', time: '13h30 à 17h30', duration: 4, state: 'treatment' },
-  { date: '25/04', time: '08h30 à 12h30', duration: 4, state: 'refused' },
+  { date: '30/05/2024', time: '08h30 à 12h30', duration: 2 ,state: 'unjustified'},
+  { date: '30/05/2024', time: '13h30 à 17h30', duration: 4, state: 'treatment' },
+  { date: '15/05/2024', time: '08h30 à 12h30', duration: 4, state: 'refused' },
+  { date: '09/05/2024', time: '08h30 à 12h30', duration: 4, state: 'unjustified' },
+  { date: '07/05/2024', time: '13h30 à 17h30', duration: 4, state: 'treatment' },
+  { date: '25/04/2024', time: '08h30 à 12h30', duration: 4, state: 'refused' },
 ];
 
 // fake data justify absence
 const absenceJustify = [
-  { date: '10/01', time: '08h30 à 12h30', duration: 7, state: 'justified' },
-  { date: '20/02', time: '13h30 à 17h30', duration: 4, state: 'justified' },
-  { date: '15/03', time: '08h30 à 12h30', duration: 4,  state: 'justified' },
+  { date: '10/01/2024', time: '08h30 à 12h30', duration: 7, state: 'justified' },
+  { date: '20/02/2024', time: '13h30 à 17h30', duration: 4, state: 'justified' },
+  { date: '15/03/2024', time: '08h30 à 12h30', duration: 4,  state: 'justified' },
 ];
 
 //display icon by state
 const displayIcon = (state: string) => {
   switch (state) {
     case 'unjustified':
-      return <img src={UploadIcon} alt="Croix" />;
+      return <img src={UploadIcon} alt="upload" />;
     case 'treatment':
       return <img src={SablierIcon} alt="Sablier" />;
     case 'refused':

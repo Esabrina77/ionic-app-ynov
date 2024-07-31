@@ -88,6 +88,10 @@ export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     // Handle form submission logic here
   };
 
+    // recuperer les datas du liens
+    const date = '30/05/2024';
+    const time ='13h30 à 17h30';
+    const duration=4
   return (
     <>
       <Header title="Justifs Absence" showLogo />
@@ -95,15 +99,13 @@ export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
         <form onSubmit={handleSubmit} className='box_container'>
           <AttachedFileSelector>
           <IonText className="date_unjustify">
-        Absence le 30/05 de 09h15 à 17h15
-        07h00 manqués
+        Absence le {date} de {time} <span className='danger'> {duration}h</span>  manqués
       </IonText>
             <ReasonSelector />
           </AttachedFileSelector>
           <AttachedFileSelector>
             <IonText className="p" id="attached-legend">
-              Justificatif pour le 30/05 de 09h15 à 17h15
-              07h00 manqués
+              Joindre des fichiers d'appui.
             </IonText>
             <FileUploader onFileUpload={handleFileUpload} />
             <PhotoCapture onPhotoCapture={handlePhotoCapture} />

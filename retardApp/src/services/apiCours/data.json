@@ -1,40 +1,33 @@
 {
-  "courses": [
+    "courses": [
       {
-          "id": "1",
-          "cours_id": "30",
-          "date_debut": "2024-07-29T10:40:00",
-          "date_fin": "2024-07-29T12:00:00",
-          "salle": "A1",
-          "prof": "M. Dupont",
-          "description": "Test de la matière"
+        "id": "1",
+        "cours_id": "30",
+        "date_debut": "2024-07-31T14:00:00",
+        "date_fin": "2024-07-31T14:48:00",
+        "salle": "A1",
+        "prof": "M. Dupont",
+        "description": "Test de la matière"
+      },
+
+      {
+        "id": "3",
+        "cours_id": "30",
+        "date_debut": "2024-07-31T16:30:00",
+        "date_fin": "2024-07-31T18:00:00",
+        "salle": "A3",
+        "prof": "M. Dupont",
+        "description": "Appel d'offre"
       },
       {
-          "id": "2",
-          "cours_id": "20",
-          "date_debut": "2024-07-29T11:20:00",
-          "date_fin": "2024-07-29T15:00:00",
-          "salle": "A2",
-          "prof": "M. Lefevre",
-          "description": "Encodage numérique"
-      },
-      {
-          "id": "3",
-          "cours_id": "30",
-          "date_debut": "2024-07-29T16:00:00",
-          "date_fin": "2024-07-29T18:00:00",
-          "salle": "A3",
-          "prof": "M. Dupont",
-          "description": "Test de la matière"
-      },
-      {
-          "id": "4",
-          "cours_id": "40",
-          "date_debut": "2024-07-30T14:00:00",
-          "date_fin": "2024-07-30T18:00:00",
-          "salle": "A4",
-          "prof": "M. Rzepka",
-          "description": "x86 Assembly"
+        "id": "4",
+        "cours_id": "40",
+        "date_debut": "2024-08-01T14:00:00",
+        "date_fin":   "2024-08-01T18:00:00",
+        "salle": "A4",
+        "prof": "M. Rzepka",
+        "description": "x86 Assembly"
       }
-  ]
-}
+    ]
+  }
+  

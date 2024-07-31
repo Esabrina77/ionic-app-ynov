@@ -23,10 +23,9 @@
 }
 .tooltip{
     border-radius: 25px;
-    height: 93px;
     width: 393px;
     background-color: #F0A5A5;
-
+ 
     font-family: var(--font-bold);
     //place center at center
     left: 50%;
@@ -34,6 +33,7 @@
     transform: translate(-50%, -50%);
    position: fixed;
    display: flex;
+   text-align: center;
    align-items: center;
     justify-content: center;
     flex-direction: column;
