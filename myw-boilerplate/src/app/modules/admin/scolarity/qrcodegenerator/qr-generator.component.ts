@@ -28,7 +28,7 @@ export class QrGeneratorComponent implements OnInit, OnDestroy {
   statusMessage: string = '';
   minutesLate: number = 0;
   private intervalId: any;
-  SalutASamy: string = '';
+  Encrypted: string = '';
 
   // Heure de début du cours fixée à 10h00
   private courseStartTime: Date;
@@ -56,11 +56,11 @@ export class QrGeneratorComponent implements OnInit, OnDestroy {
   }
 
   async generateQrCode(): Promise<void> {
-    const SalutASamy = await this.oulala(new Date().toISOString());
+    const Encrypted = await this.Encrypter(new Date().toISOString());
     const currentTime = new Date();
     const timeDifference = Math.floor((currentTime.getTime() - this.courseStartTime.getTime()) / (1000 * 60)); // Différence en minutes
     let idStatusScan: number;
-    this.SalutASamy = SalutASamy.toString();
+    this.Encrypted = Encrypted.toString();
     if (timeDifference < 0) {
       this.statusMessage = 'Cours pas encore commencé';
       idStatusScan = 2;
@@ -80,7 +80,7 @@ export class QrGeneratorComponent implements OnInit, OnDestroy {
       status: this.statusMessage,
       checkedAt: formatDate(currentTime, 'yyyy-MM-dd HH:mm:ss', 'fr-FR'),
       minutesLate: this.minutesLate,
-      SalutASamy: this.SalutASamy
+      Encrypted: this.Encrypted
     });
   }
 
@@ -101,7 +101,7 @@ export class QrGeneratorComponent implements OnInit, OnDestroy {
     this.generateQrCode();
   }
 
-  async oulala(data: string): Promise<string> {
+  async Encrypter(data: string): Promise<string> {
     const key = await GetKey();
     if (key) {
       var tmp = encryptRSA(data,key)
