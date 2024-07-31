@@ -1,1 +1,10 @@
-<p>absence works!</p>
+<div class="absences-container">
+  <h1>List of absences</h1>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <ul *ngIf="absences.length">
+    <li *ngFor="let absence of absences">
+      <strong>ID:</strong> {{ absence.props.id }} - <strong>Annee_ID:</strong> {{ absence.props.annee_id }} - <strong>Etudiant:</strong> {{ absence.props.etudiant_id }}
+    </li>
+  </ul>
+  <div *ngIf="!absences.length && !errorMessage">No absences found.</div>
+</div>
