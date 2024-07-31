@@ -1,17 +1,65 @@
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$background-color: #f9f9f9;
+$error-color: #e74c3c;
+$text-color: #333;
+$border-color: #ddd;
+$border-radius: 5px;
+
+// Container Styles
 .retards-container {
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: auto;
+  font-family: Arial, sans-serif;
 
   h1 {
     font-size: 24px;
+    color: $primary-color;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   .error-message {
-    color: red;
+    color: $error-color;
+    background-color: rgba($error-color, 0.1);
+    border: 1px solid $error-color;
+    border-radius: $border-radius;
+    padding: 15px;
     margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .retards-dropdown {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: $text-color;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      font-size: 16px;
+      background-color: #fff;
+      color: $text-color;
+      outline: none;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 5px rgba($primary-color, 0.5);
+      }
+    }
   }
 
   ul {
@@ -19,12 +67,28 @@
     padding: 0;
 
     li {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
       &:last-child {
-        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: $primary-color;
       }
     }
+  }
+
+  .no-absences {
+    text-align: center;
+    font-style: italic;
+    color: $text-color;
+    font-size: 16px;
+    margin-top: 20px;
   }
 }
