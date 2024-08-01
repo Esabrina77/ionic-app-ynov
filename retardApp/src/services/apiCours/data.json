@@ -3,8 +3,8 @@
       {
         "id": "1",
         "cours_id": "30",
-        "date_debut": "2024-08-02T14:30:00",
-        "date_fin": "2024-08-02T14:50:00",
+        "date_debut": "2024-08-01T16:20:00",
+        "date_fin":    "2024-08-01T17:50:00",
         "salle": "A1",
         "prof": "M. Dupont",
         "description": "Test de la matière"

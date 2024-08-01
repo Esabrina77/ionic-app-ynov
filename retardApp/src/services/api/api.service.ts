@@ -28,27 +28,46 @@ class ApiService {
   
       console.log("ABSENCE JUSTIFIEE EN COURS DE TRAITEMENT");
       
-      // Update the absence to mark it as justified
-      // await this.updateAbsence(justificationData.absenceId, { isJustified: true });
+      // Mettre à jour l'absence pour la marquer comme justifiée
+      await this.updateAbsence(justificationData.absenceId, { isJustified: true });
   
-      // If you still need to submit additional data, use a different endpoint
-      // await this.api.post('/justification-details', formData, {
+      // Si vous avez toujours besoin d'envoyer des données supplémentaires
+      // await this.api.post('/justification', formData, {
       //   headers: {
       //     'Content-Type': 'multipart/form-data',
       //   },
       // });
   
+      console.log("Justification submitted successfully");
     } catch (error) {
       console.error('Error submitting justification:', error);
       throw error;
     }
   }
 
-  async updateAbsence(absenceId: string, updateData: Partial<Absence>): Promise<void> {
+  async updateAbsence(absenceId: string, updateData: Partial<Absence>): Promise<Absence> {
     try {
-      await this.api.patch(`/abs/${absenceId}`, updateData);
+      // Récupérer d'abord les données complètes de l'absence
+      const currentAbsence = await this.getAbsenceById(absenceId);
+      
+      // Fusionner les données actuelles avec les mises à jour
+      const updatedAbsence = { ...currentAbsence, ...updateData };
+      
+      // Envoyer la requête PATCH avec toutes les données
+      const response = await this.api.patch(`/abs/${absenceId}`, updatedAbsence);
+      return response.data.props;
     } catch (error) {
       console.error(`Error updating absence ${absenceId}:`, error);
+      throw error;
+    }
+  }
+  
+  async getAbsenceById(absenceId: string): Promise<Absence> {
+    try {
+      const response = await this.api.get(`/abs/${absenceId}`);
+      return response.data.props;
+    } catch (error) {
+      console.error(`Error fetching absence ${absenceId}:`, error);
       throw error;
     }
   }
