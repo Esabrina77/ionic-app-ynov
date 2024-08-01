@@ -51,7 +51,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
       calculateRetardDuration();
       checkCourseEnd();
     }, 60000);
-    setScanValid(hasUpcomingCourses());
+    
   
     return () => clearInterval(interval);
   }, [courses]);
@@ -103,10 +103,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     }
   };
 
-  const hasUpcomingCourses = () => {
-    const now = new Date();
-    return courses.some(course => new Date(course.date_debut) > now);
-  };
+
   
   const checkRetardAndScanValidity = () => {
     const { isValid, course } = apiCoursService.checkIfScanValid();
@@ -120,7 +117,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
       }
     } else {
       setIfRetard(false);
-      setScanValid(hasUpcomingCourses());
+   
     }
   };
 
@@ -188,7 +185,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           ) : (
             <HeaderRadius>
              <IonText>
-             {hasUpcomingCourses() ? "Vous n'êtes pas en retard" : "Il n'y a plus de cours à venir"}
+          Vous n'êtes pas en retard
               </IonText>
             </HeaderRadius>
           )

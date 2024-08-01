@@ -30,8 +30,7 @@ class ApiService {
       
       // Mettre à jour l'absence pour la marquer comme justifiée
       await this.updateAbsence(justificationData.absenceId, { isJustified: true });
-  
-      // Si vous avez toujours besoin d'envoyer des données supplémentaires
+        // Si vous avez toujours besoin d'envoyer des données supplémentaires
       // await this.api.post('/justification', formData, {
       //   headers: {
       //     'Content-Type': 'multipart/form-data',
