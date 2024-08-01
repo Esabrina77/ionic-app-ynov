@@ -11,9 +11,10 @@ interface PdfProps {
   prenom: string;
   nom: string;
   promotion: string;
+  dateHeure: string | null; // Ajouter dateHeure dans les props
 }
 
-const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, prenom, nom, promotion }) => {
+const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, prenom, nom, promotion, dateHeure }) => {
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,39 +30,32 @@ const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, prenom, nom, 
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
 
-            const pdfData = pdf.output('datauristring').split(',')[1]; // Extraire la partie base64
-            sendPdfToServer(pdfData, prenom, nom);
+            // Nom du fichier PDF à télécharger
+            const fileName = `Decharge_Sortie_${prenom}_${nom}_${new Date().toISOString().split('T')[0]}.pdf`;
+
+            // Télécharger le PDF
+            pdf.save(fileName);
           })
           .catch((err) => {
             console.error('Error generating PDF:', err);
           });
       }
     }
-  }, [showPreview, prenom, nom]);
-
-  const sendPdfToServer = (pdfData: string, prenom: string, nom: string) => {
-    fetch('http://localhost:3000/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ pdfData, prenom, nom }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('PDF sent successfully:', data);
-      })
-      .catch((error) => {
-        console.error('Error sending PDF:', error);
-      });
-  };
+  }, [showPreview, prenom, nom, text, imageBase64, promotion, dateHeure]);
 
   return (
     <>
       {showPreview && (
         <div className='Pdf'>
           <div ref={previewRef}>
-            <Preview text={text} imageBase64={imageBase64} prenom={prenom} nom={nom} promotion={promotion} />
+            <Preview 
+              text={text} 
+              imageBase64={imageBase64} 
+              prenom={prenom} 
+              nom={nom} 
+              promotion={promotion} 
+              dateHeure={dateHeure} // Passer dateHeure au composant Preview
+            />
           </div>
         </div>
       )}
