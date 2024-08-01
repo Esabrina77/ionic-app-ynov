@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '../../../../../components/ui/Header';
 import { TabWrappedComponent } from '../../../../../components/utils/TabWrapper';
 import TabSwitcher from '../../../../../components/TabSwitcher/TabSwitcher';
 import StatSlider from '../../../../../components/StatSlider/StatSlider';
 import HeaderRadius from '../../../../../components/HeaderRadius/HeaderRadius';
-//svgs
+import { apiService } from '../../../../../services/api/api.service';
 import UploadIcon from '../../../../../assets/svg/icons/Group 139upload.png';
-import CroixIcon from '../../../../../assets/svg/icons/signe-de-la-croix 1croix.png';
-import SablierIcon from '../../../../../assets/svg/icons/Rectangle 125sablier.png';
 import CheckIcon from '../../../../../assets/svg/icons/Vector (Stroke)check.png';
-// Styles
+import { Absence } from '../../../../../services/api/api.interfaces';
 import './Absences.scss';
 import {
   useIonViewDidEnter,
@@ -21,58 +19,58 @@ import {
   IonLabel
 } from '@ionic/react';
 
-// fake data injustify absence
-const absencesInjustify = [
-  { date: '30/05/2024', time: '08h30 à 12h30', duration: 2 ,state: 'unjustified'},
-  { date: '30/05/2024', time: '13h30 à 17h30', duration: 4, state: 'treatment' },
-  { date: '15/05/2024', time: '08h30 à 12h30', duration: 4, state: 'refused' },
-  { date: '09/05/2024', time: '08h30 à 12h30', duration: 4, state: 'unjustified' },
-  { date: '07/05/2024', time: '13h30 à 17h30', duration: 4, state: 'treatment' },
-  { date: '25/04/2024', time: '08h30 à 12h30', duration: 4, state: 'refused' },
-];
-
-// fake data justify absence
-const absenceJustify = [
-  { date: '10/01/2024', time: '08h30 à 12h30', duration: 7, state: 'justified' },
-  { date: '20/02/2024', time: '13h30 à 17h30', duration: 4, state: 'justified' },
-  { date: '15/03/2024', time: '08h30 à 12h30', duration: 4,  state: 'justified' },
-];
-
-//display icon by state
-const displayIcon = (state: string) => {
-  switch (state) {
-    case 'unjustified':
-      return <img src={UploadIcon} alt="upload" />;
-    case 'treatment':
-      return <img src={SablierIcon} alt="Sablier" />;
-    case 'refused':
-      return <img src={CroixIcon} alt="Croix" />;
-    case 'justified':
-      return <img src={CheckIcon} alt="Check" />;
-    default:
-      return null;
-  }
+const displayIcon = (isJustified: boolean) => {
+  return isJustified ? <img src={CheckIcon} alt="Check" /> : <img src={UploadIcon} alt="upload" />;
 };
 
 export const AbsencesTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
   const [currentTab, setCurrentTab] = useState('unjustified');
+  const [absencesInjustify, setAbsencesInjustify] = useState<Absence[]>([]);
+  const [absenceJustify, setAbsenceJustify] = useState<Absence[]>([]);
 
   useIonViewDidEnter(() => {
     setVisible(true);
+    fetchAbsences();
   });
 
   useIonViewWillLeave(() => {
     setVisible(false);
   });
 
+  const fetchAbsences = async () => {
+    const etudiantId = 5578; // Remplacez par l'ID de l'étudiant
+    try {
+      const unjustifiedAbsences = await apiService.getUnjustifiedAbsences(etudiantId);
+      const justifiedAbsences = await apiService.getJustifiedAbsences(etudiantId);
+      setAbsencesInjustify(unjustifiedAbsences);
+      setAbsenceJustify(justifiedAbsences);
+    } catch (error) {
+      console.error('Error fetching absences:', error);
+    }
+  };
+
   const router = useIonRouter();
 
-  const goToJustif = () => {
-    router.push('/tabs/justifs', 'forward', 'push');
+  const goToJustif = (absence: Absence) => {
+    const date = new Date(absence.date_debut).toLocaleDateString();
+    const time = `${new Date(absence.date_debut).toLocaleTimeString()} à ${new Date(absence.date_fin).toLocaleTimeString()}`;
+    const duration = absence.missedHours;
+    const absenceId = absence.absence_id;
+  
+    const queryParams = new URLSearchParams({
+      date,
+      time,
+      duration: duration.toString(),
+      absenceId
+    }).toString();
+  
+    router.push(`/tabs/justifs?${queryParams}`, 'forward', 'push');
   };
-  const totalAbsencesInJustify = absencesInjustify.reduce((total, absence) => total + absence.duration, 0);
-  const totalAbsencesJustify = absenceJustify.reduce((total, absence) => total + absence.duration, 0);
+  
+
+  const totalAbsencesInJustify = absencesInjustify.reduce((total, absence) => total + (absence.missedHours || 0), 0);
+  const totalAbsencesJustify = absenceJustify.reduce((total, absence) => total + (absence.missedHours || 0), 0);
 
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab);
@@ -111,23 +109,16 @@ export const AbsencesTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
                     <IonItem key={index}>
                       <IonLabel>
                         <h2>Absence le
-                          <span className='absence_date'> {absence.date}</span> de
-                          <span className='absence_time'> {absence.time}</span>
+                          <span className='absence_date'> {new Date(absence.date_debut).toLocaleDateString()}</span> de
+                          <span className='absence_time'> {new Date(absence.date_debut).toLocaleTimeString()} à {new Date(absence.date_fin).toLocaleTimeString()}</span>
                         </h2>
                         <p>
-                          <span className='absence_duration'>{absence.duration}</span>h manquées
+                          <span className='absence_duration'>{absence.missedHours}</span>h manquées
                         </p>
                       </IonLabel>
-                      {absence.state === 'unjustified' || absence.state === 'refused' ? (
-                        <button onClick={goToJustif}
-                        className='justify-link'>
-                          {displayIcon(absence.state)}
-                        </button>
-                      ) : (
-                        <div className='justify-link'>
-                          {displayIcon(absence.state)}
-                        </div>
-                      )}
+                      <button onClick={() => goToJustif(absence)} className='justify-link'>
+                        {displayIcon(absence.isJustified)}
+                      </button>
                     </IonItem>
                   ))}
                 </div>
@@ -155,18 +146,16 @@ export const AbsencesTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
                     <IonItem key={index}>
                       <IonLabel>
                         <h2>Absence le
-                          <span className='absence_date'> {absence.date}</span> de
-                          <span className='absence_time'> {absence.time}</span>
+                          <span className='absence_date'> {new Date(absence.date_debut).toLocaleDateString()}</span> de
+                          <span className='absence_time'> {new Date(absence.date_debut).toLocaleTimeString()} à {new Date(absence.date_fin).toLocaleTimeString()}</span>
                         </h2>
                         <p>
-                          <span className='absence_duration'>{absence.duration}</span>h manquées
+                          <span className='absence_duration'>{absence.missedHours}</span>h manquées
                         </p>
                       </IonLabel>
-                      <div
-                          className='justify-link'>
-                            
-                      {displayIcon(absence.state)}
-                        </div>
+                      <div className='justify-link'>
+                        {displayIcon(absence.isJustified)}
+                      </div>
                     </IonItem>
                   ))}
                 </div>

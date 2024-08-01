@@ -80,7 +80,7 @@ export const ROUTES: RouteItem[] = [
     icon: <IonIcon icon={retard}></IonIcon>, 
     component: LateJustify,
     tab: "justify-late",
-    showInTabs: true,
+    showInTabs: false,
     brand: [AppBrand.Ynov],
     feature: "JustifyLate" as AppFeature,
   },
@@ -122,7 +122,7 @@ export const ROUTES: RouteItem[] = [
     icon: <IonIcon icon={absence}></IonIcon>, 
     component: MessageJustif,
     tab: "message_justif",
-    showInTabs: true,
+    showInTabs: false,
     brand: [AppBrand.Ynov],
     feature: "MessageJustif" as AppFeature,
   }

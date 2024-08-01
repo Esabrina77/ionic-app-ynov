@@ -39,10 +39,7 @@ export const MessageJustif: React.FC<TabWrappedComponent> = ({ isTab }) => {
               <IonText>
               Votre justification a bien été prise en compte, votre demande sera traitée d’ici sous peu.
               </IonText>
-              <br></br>
-              <IonText>
-              Justificatif pour le <span className='courseu'> 30/05</span> de  09h15 à 17h15
-              </IonText>
+           
             </div>
             </IonContent>
           </>

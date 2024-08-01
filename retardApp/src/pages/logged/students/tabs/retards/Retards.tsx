@@ -45,14 +45,16 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     fetchRetards();
     checkRetardAndScanValidity();
     calculateRetardDuration();
-
+  
     const interval = setInterval(() => {
       checkRetardAndScanValidity();
       calculateRetardDuration();
       checkCourseEnd();
     }, 60000);
+    setScanValid(hasUpcomingCourses());
+  
     return () => clearInterval(interval);
-  }, []);
+  }, [courses]);
 
   const calculateRetardDuration = () => {
     const duration = apiCoursService.calculateRetardDuration();
@@ -63,9 +65,12 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     try {
       const etudiantId = 5578; // l'ID de l'étudiant récupéré lors du login
       const retardData = await apiService.getRetardByEtudiantId(etudiantId);
-      setRetards([retardData]);
-
-      const totalMinutes = (retardData.missedHours || 0) * 60;
+      const retardsArray = Array.isArray(retardData) ? retardData : [retardData];
+      setRetards(retardsArray);
+      
+      // Calculez le total des retards après avoir mis à jour l'état
+      const totalMinutes = retardsArray.reduce((total, retard) => total + (retard.missedHours || 0) * 60, 0);
+      console.log("total des retards " + totalMinutes);
       setTotalRetard(totalMinutes);
     } catch (error) {
       console.error('Error fetching retards:', error);
@@ -73,6 +78,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
       setTotalRetard(0);
     }
   };
+  
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
@@ -89,13 +95,17 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     setCourses(courseData.courses);
   };
 
-  //check si le cours est fini 
   const checkCourseEnd = () => {
     if (currentCourse && new Date() > new Date(currentCourse.date_fin)) {
       setIfRetard(false);
       setScanValid(true);
       setCurrentCourse(null);
     }
+  };
+
+  const hasUpcomingCourses = () => {
+    const now = new Date();
+    return courses.some(course => new Date(course.date_debut) > now);
   };
   
   const checkRetardAndScanValidity = () => {
@@ -110,14 +120,13 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
       }
     } else {
       setIfRetard(false);
-      setScanValid(true);
+      setScanValid(hasUpcomingCourses());
     }
   };
-  
 
   const markStudentAsAbsent = async (course: Course) => {
     try {
-      const etudiantId = 5578; // l'ID de l'étudiant récupéré lors du login
+      const etudiantId = 2; // l'ID de l'étudiant récupéré lors du login
       await apiService.markStudentAsAbsent(course, etudiantId);
     } catch (error) {
       console.error('Error marking student as absent:', error);
@@ -146,44 +155,44 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
           ]}
           defaultTab="actual"
         />
-      {currentTab === 'actual' ? (
-  currentCourse ? (
-    <>
-      <HeaderRadius>
-        <IonText className="danger">
-          {scanValid ? "Vous êtes en retard" : "Vous êtes absent"}
-        </IonText>
-      </HeaderRadius>
-      <div className='tooltip'>
-        <p className='retardsummary'> Votre cours
-          <span className='course'> {currentCourse.description}
-          </span> a commencé.
-        </p>
-        <p> Votre retard est de : <span className='danger'> {retardDuration} </span> min
-        </p>
-      </div>
-      {scanValid ? (
-        <div
-          className='btn_scanQR'
-          onClick={goToScanQR}>
-          Scanner QR Code
-        </div>
-      ) : (
-        <HeaderRadius>
-          <IonText className="danger">
-            Le temps de scan est expiré. Vous êtes marqué absent.
-          </IonText>
-        </HeaderRadius>
-      )}
-    </>
-  ) : (
-    <HeaderRadius>
-      <IonText>
-      Vous n'êtes pas en retard
-      </IonText>
-    </HeaderRadius>
-  )
-) : (
+        {currentTab === 'actual' ? (
+          currentCourse ? (
+            <>
+              <HeaderRadius>
+                <IonText className="danger">
+                  {scanValid ? "Vous êtes en retard" : "Vous êtes absent"}
+                </IonText>
+              </HeaderRadius>
+              <div className='tooltip'>
+                <p className='retardsummary'> Votre cours
+                  <span className='course'> {currentCourse.description}
+                  </span> a commencé.
+                </p>
+                <p> Votre retard est de : <span className='danger'> {retardDuration} </span> min
+                </p>
+              </div>
+              {scanValid ? (
+                <div
+                  className='btn_scanQR'
+                  onClick={goToScanQR}>
+                  Scanner QR Code
+                </div>
+              ) : (
+                <HeaderRadius>
+                  <IonText className="danger">
+                    Le temps de scan est expiré. Vous êtes marqué absent.
+                  </IonText>
+                </HeaderRadius>
+              )}
+            </>
+          ) : (
+            <HeaderRadius>
+             <IonText>
+             {hasUpcomingCourses() ? "Vous n'êtes pas en retard" : "Il n'y a plus de cours à venir"}
+              </IonText>
+            </HeaderRadius>
+          )
+        ) : (
           <>
             <HeaderRadius>
               <StatSlider
@@ -195,8 +204,8 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
             </HeaderRadius>
             <IonList>
               <div className='list-items'>
-                {retards.map((retard) => (
-                  <IonItem key={retard.id}>
+                {retards.map((retard, index) => (
+                  <IonItem key={index}>
                     <IonLabel>
                       <h2>Cours du
                         <span className='absence_date'> {formatDate(retard.date_debut)} </span> de
