@@ -1,20 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Header } from "../../../../../components/ui/Header";
-import Signature from "../../../../../components/Signature/Signature";
-import Pdf from "../../../../../components/Pdf/Pdf";
-import { getNameFromEmail } from "../../../../../components/emailsUtils/emailsUtils";
+import Signature from "../../../../../tools/Signature/Signature";
+import Pdf from "../../../../../tools/Pdf/Pdf";
+import JsonLecteur from "../../../../../tools/JsonLecteur/JsonLecteur";
+import Horaire from "../../../../../tools/DateHeure/Horaire"; // Importer le composant Horaire
 import "./form.scss";
 
 export const DechargeSortieForm: React.FC = () => {
-  console.log('DechargeSortieForm opened');
   const [motif, setMotif] = useState("");
   const [signatureData, setSignatureData] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [etudiant, setEtudiant] = useState<{ nom: string, prenom: string, promotion: string } | null>(null);
+  const [dateHeure, setDateHeure] = useState<string | null>(null); // Nouveau state pour la date et l'heure
   const signatureRef = useRef<any>(null);
 
-  const toEmail = 'noa.gambey@ynov.com';
-  const { prenom, nom } = getNameFromEmail(toEmail);
-  console.log('DechargeSortieForm prenom:', prenom);
+  const handleDataLoaded = useCallback((data: { nom: string[], prenom: string[], PromotionEtudiant: string[] }) => {
+    setEtudiant({
+      nom: data.nom[0],
+      prenom: data.prenom[0],
+      promotion: data.PromotionEtudiant[0],
+    });
+  }, []);
 
   const save = () => {
     if (motif.trim() === "") {
@@ -29,6 +35,16 @@ export const DechargeSortieForm: React.FC = () => {
         return;
       }
     }
+
+    // Récupérer la date et l'heure actuelle
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const dateHeureString = `${day}/${month}/${year} à ${hours}h${minutes}`;
+    setDateHeure(dateHeureString);
 
     setShowPreview(true);
   };
@@ -48,12 +64,16 @@ export const DechargeSortieForm: React.FC = () => {
         </div>
         <Signature ref={signatureRef} />
         <button className="Bouton_Validation" type="button" onClick={save}>Valider</button>
-        {showPreview && (
+        <JsonLecteur onDataLoaded={handleDataLoaded} />
+        {showPreview && etudiant && (
           <Pdf 
             text={motif} 
             imageBase64={signatureData} 
-            showPreview={showPreview} 
-            toEmail={toEmail}
+            showPreview={showPreview}
+            prenom={etudiant.prenom} 
+            nom={etudiant.nom} 
+            promotion={etudiant.promotion}
+            dateHeure={dateHeure} // Passer la date et l'heure au composant Pdf
           />
         )}
       </div>
