@@ -97,5 +97,4 @@ const [visible, setVisible] = useState(false);
     </>
   );
 };
-
 export default LateJustify;
