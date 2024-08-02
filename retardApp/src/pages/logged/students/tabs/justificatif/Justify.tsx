@@ -1,5 +1,7 @@
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
+import{ apiService } from '../../../../../services/api/api.service';
 import {
   IonContent,
   useIonViewDidEnter,
@@ -8,6 +10,7 @@ import {
   IonCard,
   IonItem,
   IonInput,
+  useIonRouter,
   IonButton
 } from "@ionic/react";
 
@@ -24,8 +27,21 @@ import './justify.scss';
 export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
-  const [currentTab, setCurrentTab] = useState('unjustified');
+  const [reason, setReason] = useState('');
 
+  // Utiliser useLocation pour extraire les données de l'URL
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const date = searchParams.get('date') || 'N/A';
+  const time = searchParams.get('time') || 'N/A';
+  const duration = parseFloat(searchParams.get('duration') || '0');
+  const absenceId = searchParams.get('absenceId') || '';
+  const router = useIonRouter();
+
+ const goToMessageJustif = () => {
+    router.push('/tabs/message_justif', 'forward', 'push');
+  }
   useIonViewDidEnter(() => {
     setVisible(true);
   });
@@ -33,10 +49,6 @@ export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   useIonViewWillLeave(() => {
     setVisible(false);
   });
-
-  const handleTabChange = (tab: string) => {
-    setCurrentTab(tab);
-  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFiles = Array.from(event.target.files || []);
@@ -82,10 +94,29 @@ export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     setFiles(newFiles);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Files:", files);
-    // Handle form submission logic here
+
+    if (!reason) {
+      alert("Veuillez fournir une raison pour l'absence.");
+      return;
+    }
+
+    try {
+      const justificationData = {
+        absenceId,
+        reason,
+        files
+      };
+
+      await apiService.submitJustification(justificationData);
+      console.log("Justification submitted successfully");
+      // rediriger le user vers la page messageJustif
+   goToMessageJustif();
+    } catch (error) {
+      console.error("Error submitting justification:", error);
+      // Ajoutez ici la logique pour afficher un message d'erreur à l'utilisateur
+    }
   };
 
   return (
@@ -94,16 +125,15 @@ export const JustifyTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
       <IonContent>
         <form onSubmit={handleSubmit} className='box_container'>
           <AttachedFileSelector>
-          <IonText className="date_unjustify">
-        Absence le 30/05 de 09h15 à 17h15
-        07h00 manqués
-      </IonText>
-            <ReasonSelector />
+            <IonText className="date_unjustify">
+              Absence le {date} de {time} 
+              <span className='danger'> {duration}h</span> manquées
+            </IonText>
+            <ReasonSelector onChange={(selectedReason) => setReason(selectedReason)} />
           </AttachedFileSelector>
           <AttachedFileSelector>
             <IonText className="p" id="attached-legend">
-              Justificatif pour le 30/05 de 09h15 à 17h15
-              07h00 manqués
+              Joindre des fichiers d'appui.
             </IonText>
             <FileUploader onFileUpload={handleFileUpload} />
             <PhotoCapture onPhotoCapture={handlePhotoCapture} />

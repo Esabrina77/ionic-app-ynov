@@ -1,11 +1,12 @@
-  import { Camera, CameraResultType } from '@capacitor/camera';
-import { useState } from "react";
+ import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import {
   IonContent,
   useIonViewDidEnter,
   useIonViewWillLeave,
   IonText,
   IonCard,
+  useIonRouter,
   IonItem,
   IonInput,
   IonButton
@@ -19,70 +20,62 @@ import AttachedFileSelector from "../../../../../components/AttachedFileSelector
 import './LateJustify.scss';
 
 export const LateJustify: React.FC<TabWrappedComponent> = ({ isTab }) => {
-  const [visible, setVisible] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
-  const [currentTab, setCurrentTab] = useState('unjustified');
-
   useIonViewDidEnter(() => {
     setVisible(true);
   });
 
+  
   useIonViewWillLeave(() => {
     setVisible(false);
   });
+const [visible, setVisible] = useState(false);
+  const [reason, setReason] = useState('');
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const encryptedData = searchParams.get('data') || '';
+  const course = searchParams.get('course') || '';
+  const duration = searchParams.get('duration') || '';
 
-  const handleTabChange = (tab: string) => {
-    setCurrentTab(tab);
-  };
+  const [decryptedData, setDecryptedData] = useState<any>(null);
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadedFiles = Array.from(event.target.files || []);
-    if (files.length + uploadedFiles.length <= 3) {
-      setFiles([...files, ...uploadedFiles]);
-    } else {
-      alert("You can only upload up to 3 files in total.");
-    }
-  };
-
-  const handlePhotoCapture = async () => {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.Uri
-      });
-
-      if (image.webPath) {
-        const response = await fetch(image.webPath);
-        const blob = await response.blob();
-        const file = new File([blob], "photo.jpg", { type: "image/jpeg" });
-
-        if (files.length < 3) {
-          setFiles([...files, file]);
-        } else {
-          alert("You can only upload up to 3 files in total.");
-        }
+  useEffect(() => {
+    if (encryptedData) {
+      try {
+        const parsedData = JSON.parse(encryptedData);
+        setDecryptedData(parsedData);
+      } catch (error) {
+        console.error("Erreur lors du déchiffrement des données:", error);
       }
-    } catch (error) {
-      console.error("Error capturing photo:", error);
     }
-  };
+  }, [encryptedData]);
 
-  const openFile = (file: File) => {
-    const fileURL = URL.createObjectURL(file);
-    window.open(fileURL, '_blank');
-  };
 
-  const handleDeleteFile = (index: number) => {
-    const newFiles = [...files];
-    newFiles.splice(index, 1);
-    setFiles(newFiles);
-  };
+  const router = useIonRouter();
+  const goToMessageJustif = () => {
+    router.push('/tabs/message_scan', 'forward', 'push');
+  }
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Files:", files);
-    // Handle form submission logic here
+
+    if (!reason) {
+      alert("Veuillez fournir une raison pour l'absence.");
+      return;
+    }
+
+    try {
+      const justificationData = {
+        reason,
+      };
+
+      // await apiService.submitJustification(justificationData);
+      console.log("Justification submitted successfully");
+      // Rediriger l'utilisateur vers la page messageJustif
+      goToMessageJustif();
+    } catch (error) {
+      console.error("Error submitting justification:", error);
+      // Ajoutez ici la logique pour afficher un message d'erreur à l'utilisateur
+    }
   };
 
   return (
@@ -91,11 +84,11 @@ export const LateJustify: React.FC<TabWrappedComponent> = ({ isTab }) => {
       <IonContent>
         <form onSubmit={handleSubmit} className='box_container'>
           <AttachedFileSelector>
-          <IonText className="date_unjustify">
-          Retard  le 30/05 au cours Appel d’Offre
-<p>Durée : <span className='danger'>10 min</span>  </p>
-      </IonText>
-            <ReasonSelector />
+            <IonText className="date_unjustify">
+           
+              <p>Justification de retard</p>
+            </IonText>
+            <ReasonSelector onChange={(selectedReason) => setReason(selectedReason)} />
           </AttachedFileSelector>
 
           <IonButton type="submit" className='submit'>Envoyer</IonButton>
@@ -104,3 +97,5 @@ export const LateJustify: React.FC<TabWrappedComponent> = ({ isTab }) => {
     </>
   );
 };
+
+export default LateJustify;

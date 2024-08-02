@@ -1,4 +1,3 @@
-// src/services/apiCours/apiCours.service.ts
 import { CourseData, Course } from './apiCours.interfaces';
 import courseData from './data.json';
 
@@ -7,42 +6,61 @@ class ApiCoursService {
     return courseData as CourseData;
   }
 
-
-  checkIfRetard(): boolean {
+  checkIfCurrentCourseEnded(): boolean {
+    const now = new Date();
+    const currentCourse = this.getCurrentCourse();
+    if (!currentCourse) return false;
+  
+    const courseEndTime = new Date(currentCourse.date_fin);
+    return now > courseEndTime;
+  }
+  
+  checkIfRetard(): { isRetard: boolean; nextCourse: Course | null } {
     const now = new Date();
     const currentDay = now.toISOString().split('T')[0];
-    const currentTime = now.toTimeString().slice(0, 5);
-
-    return this.getCourseData().courses.some(course => {
-      const courseDate = course.date_debut.split('T')[0];
-      const courseStartTime = course.date_debut.split('T')[1].slice(0, 5);
-      return courseDate === currentDay && currentTime > courseStartTime;
+  
+    const nextCourse = this.getCourseData().courses.find(course => {
+      const courseDate = new Date(course.date_debut).toISOString().split('T')[0];
+      const courseStartTime = new Date(course.date_debut);
+      return courseDate === currentDay && courseStartTime > now;
     });
+  
+    if (!nextCourse) return { isRetard: false, nextCourse: null };
+  
+    const courseStartTime = new Date(nextCourse.date_debut);
+    const isRetard = now > courseStartTime;
+  
+    return { isRetard, nextCourse };
   }
-
-  checkIfScanValid(): boolean {
+  
+  checkIfScanValid(): { isValid: boolean; course: Course | null } {
     const now = new Date();
     const currentDay = now.toISOString().split('T')[0];
-    const currentTime = now.toISOString();
-
-    return this.getCourseData().courses.some(course => {
-      const courseDate = course.date_debut.split('T')[0];
-      const courseStartTime = new Date(course.date_debut).toISOString();
-      const timeDifference = (new Date(currentTime).getTime() - new Date(courseStartTime).getTime()) / (1000 * 60); // Différence en minutes
-
-      return courseDate === currentDay && timeDifference <= 30;
+  
+    const currentCourse = this.getCourseData().courses.find(course => {
+      const courseDate = new Date(course.date_debut).toISOString().split('T')[0];
+      const courseStartTime = new Date(course.date_debut);
+      const courseEndTime = new Date(course.date_fin);
+      return courseDate === currentDay && now >= courseStartTime && now <= courseEndTime;
     });
+  
+    if (!currentCourse) return { isValid: false, course: null };
+  
+    const timeDifference = (now.getTime() - new Date(currentCourse.date_debut).getTime()) / (1000 * 60);
+    const isValid = timeDifference <= 30;
+  
+    return { isValid, course: currentCourse };
   }
+  
   getCurrentCourse(): Course | null {
     const now = new Date();
     const currentDay = now.toISOString().split('T')[0];
-    const currentTime = now.toISOString();
 
     return this.getCourseData().courses.find(course => {
-      const courseDate = course.date_debut.split('T')[0];
-      const courseStartTime = new Date(course.date_debut).toISOString();
-      const courseEndTime = new Date(course.date_fin).toISOString();
-      return courseDate === currentDay && currentTime >= courseStartTime && currentTime <= courseEndTime;
+      const courseDate = new Date(course.date_debut).toISOString().split('T')[0];
+      const courseStartTime = new Date(course.date_debut);
+      const courseEndTime = new Date(course.date_fin);
+      return courseDate === currentDay && now >= courseStartTime && now <= courseEndTime;
     }) || null;
   }
 
