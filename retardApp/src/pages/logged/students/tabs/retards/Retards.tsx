@@ -123,7 +123,7 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
 
   const markStudentAsAbsent = async (course: Course) => {
     try {
-      const etudiantId = 2; // l'ID de l'étudiant récupéré lors du login
+      const etudiantId = 5578; // l'ID de l'étudiant récupéré lors du login
       await apiService.markStudentAsAbsent(course, etudiantId);
     } catch (error) {
       console.error('Error marking student as absent:', error);

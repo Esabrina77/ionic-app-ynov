@@ -52,9 +52,9 @@ XdTjS2PbeCtAeQIhAJfNudz423Plht9g5/f+9o2bbPmQE7Eb9AfEPy7x4Rs9AiEA
       stopScan();
       try {
         const scannedData = JSON.parse(result.content);
-        if ('SalutASamy' in scannedData && 'idStatusScan' in scannedData) { 
+        if ('Encrypted' in scannedData && 'idStatusScan' in scannedData) { 
       
-          const encryptedData = scannedData.SalutASamy.toString();
+          const encryptedData = scannedData.Encrypted.toString();
           const decryptedData = decryptRSA(encryptedData, private_key);
           console.log(decryptedData);
           router.push(`tabs/justify-late?`, 'forward', 'push');

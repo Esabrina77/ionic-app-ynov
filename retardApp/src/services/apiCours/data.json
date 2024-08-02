@@ -3,7 +3,7 @@
       {
         "id": "1",
         "cours_id": "30",
-        "date_debut": "2024-08-02T10:10:00",
+        "date_debut":  "2024-08-02T10:00:00",
         "date_fin":    "2024-08-02T11:50:00",
         "salle": "A1",
         "prof": "M. Dupont",
