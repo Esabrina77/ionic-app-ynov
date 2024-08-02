@@ -1,33 +1,32 @@
 {
-    "courses": [
-      {
-        "id": "1",
-        "cours_id": "30",
-        "date_debut":  "2024-08-02T10:00:00",
-        "date_fin":    "2024-08-02T11:50:00",
-        "salle": "A1",
-        "prof": "M. Dupont",
-        "description": "Test de la matière"
-      },
+  "courses": [
+    {
+      "id": "1",
+      "cours_id": "30",
+      "date_debut":  "2024-08-02T14:00:00",
+      "date_fin":    "2024-08-02T14:40:00",
+      "salle": "A1",
+      "prof": "M. Dupont",
+      "description": "Test de la matière"
+    },
 
-      {
-        "id": "3",
-        "cours_id": "34",
-        "date_debut": "2024-07-02T12:00:00",
-        "date_fin": "2024-07-02T15:00:00",
-        "salle": "A3",
-        "prof": "M. Dupont",
-        "description": "Appel d'offre"
-      },
-      {
-        "id": "4",
-        "cours_id": "40",
-        "date_debut": "2024-08-02T16:00:00",
-        "date_fin":   "2024-08-02T17:00:00",
-        "salle": "A4",
-        "prof": "M. Rzepka",
-        "description": "x86 Assembly"
-      }
-    ]
-  }
-  
+    {
+      "id": "3",
+      "cours_id": "34",
+      "date_debut": "2024-07-02T14:50:00",
+      "date_fin": "2024-07-02T15:30:00",
+      "salle": "A3",
+      "prof": "M. Dupont",
+      "description": "Appel d'offre"
+    },
+    {
+      "id": "4",
+      "cours_id": "40",
+      "date_debut": "2024-08-02T16:00:00",
+      "date_fin":   "2024-08-02T17:00:00",
+      "salle": "A4",
+      "prof": "M. Rzepka",
+      "description": "x86 Assembly"
+    }
+  ]
+}

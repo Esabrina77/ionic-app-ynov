@@ -132,9 +132,16 @@ export const RetardsTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
 
   const router = useIonRouter();
 
+
   const goToScanQR = () => {
-    router.push('/tabs/qrcode', 'forward', 'push');
+    const queryParams = new URLSearchParams({
+      course: currentCourse ? currentCourse.description : '',
+      duration: retardDuration.toString()
+    }).toString();
+  console.log("goToScanQR"+ queryParams);
+    router.push(`/tabs/qrcode?${queryParams}`, 'forward', 'push');
   };
+  
 
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab as 'actual' | 'cumul');
