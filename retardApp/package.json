@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "@capacitor-community/barcode-scanner": "^4.0.1",
-    "@capacitor/android": "6.1.0",
+    "@capacitor/android": "^6.1.1",
     "@capacitor/app": "6.0.0",
     "@capacitor/camera": "^6.0.1",
     "@capacitor/core": "^6.1.1",
     "@capacitor/filesystem": "^6.0.0",
     "@capacitor/haptics": "6.0.0",
-    "@capacitor/ios": "6.1.0",
+    "@capacitor/ios": "^6.1.1",
     "@capacitor/keyboard": "6.0.1",
     "@capacitor/preferences": "^6.0.1",
     "@capacitor/status-bar": "6.0.0",
@@ -46,7 +46,7 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
-    "@capacitor/cli": "6.1.0",
+    "@capacitor/cli": "^6.1.1",
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
