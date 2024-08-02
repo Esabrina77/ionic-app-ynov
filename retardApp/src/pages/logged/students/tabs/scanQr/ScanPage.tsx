@@ -52,7 +52,6 @@ XdTjS2PbeCtAeQIhAJfNudz423Plht9g5/f+9o2bbPmQE7Eb9AfEPy7x4Rs9AiEA
     router.push(`/tabs/justify-late?${queryParams}`, 'forward', 'push');
   };
   
-
   const startScan = async () => {
     console.log("Starting scan...");
     BarcodeScanner.hideBackground();

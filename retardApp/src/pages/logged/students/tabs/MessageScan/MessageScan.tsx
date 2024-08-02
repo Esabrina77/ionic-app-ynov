@@ -20,7 +20,6 @@ interface ScannedData {
   idStatusScan: number;
   minutesLate?: number;
 }
-
 export const MessageScanTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
   const [visible, setVisible] = useState(false);
   const [scannedData, setScannedData] = useState<ScannedData | null>(null);

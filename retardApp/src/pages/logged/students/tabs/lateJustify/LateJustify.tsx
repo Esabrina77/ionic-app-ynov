@@ -67,7 +67,6 @@ const [visible, setVisible] = useState(false);
       const justificationData = {
         reason,
       };
-
       // await apiService.submitJustification(justificationData);
       console.log("Justification submitted successfully");
       // Rediriger l'utilisateur vers la page messageJustif
