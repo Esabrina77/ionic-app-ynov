@@ -1,11 +1,14 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Header } from "../../../../../components/ui/Header";
 import Signature from "../../../../../tools/Signature/Signature";
 import Pdf from "../../../../../tools/Pdf/Pdf";
 import JsonLecteur from "../../../../../tools/JsonLecteur/JsonLecteur";
+import useRenderCount from "../../../../../tools/UseRenderCount/UseRenderCount"; // Assuming you save the hook in this path
 import "./form.scss";
 
 export const DechargeSortieForm: React.FC = () => {
+  useRenderCount('DechargeSortieForm');
+
   const [motif, setMotif] = useState("");
   const [signatureData, setSignatureData] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
@@ -21,11 +24,11 @@ export const DechargeSortieForm: React.FC = () => {
     });
   }, []);
 
-  const save = () => {
+  const save = useCallback(() => {
     if (motif.trim() === "") {
       return;
     }
-
+  
     if (signatureRef.current) {
       const signatureData = signatureRef.current.getSignature();
       if (signatureData) {
@@ -34,8 +37,7 @@ export const DechargeSortieForm: React.FC = () => {
         return;
       }
     }
-
-    // Récupérer la date et l'heure actuelle
+  
     const now = new Date();
     const day = String(now.getDate()).padStart(2, '0');
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -44,9 +46,16 @@ export const DechargeSortieForm: React.FC = () => {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const dateHeureString = `${day}/${month}/${year} à ${hours}h${minutes}`;
     setDateHeure(dateHeureString);
-
+  
     setShowPreview(true);
-  };
+  }, [motif]);
+  
+  useEffect(() => {
+    if (etudiant) {
+      setShowPreview(false);
+    }
+  }, [etudiant]);
+  
 
   return (
     <>

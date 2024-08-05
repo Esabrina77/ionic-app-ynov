@@ -37,4 +37,4 @@ const Preview: React.FC<PreviewProps> = ({ text, imageBase64, prenom, nom, promo
   );
 };
 
-export default Preview;
+export default React.memo(Preview);
