@@ -53,6 +53,16 @@
 - *decryptRSA* : Décrypte les données chiffrées du QR code.
 - *goTojustifyLate* : Redirige vers la page de justification de retard avec les données décryptées.
 
+## BRANCHE : *dechargeSortie*
+
+### 4. Décharges de sorties
+- *Fichier* : 
+- *Description* : 
+
+#### Principales Fonctions :
+- 
+
+
 ## Appels API
 
 ### Services API
