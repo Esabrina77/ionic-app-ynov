@@ -3,7 +3,6 @@ import { Header } from "../../../../../components/ui/Header";
 import Signature from "../../../../../tools/Signature/Signature";
 import Pdf from "../../../../../tools/Pdf/Pdf";
 import JsonLecteur from "../../../../../tools/JsonLecteur/JsonLecteur";
-import Horaire from "../../../../../tools/DateHeure/Horaire"; // Importer le composant Horaire
 import "./form.scss";
 
 export const DechargeSortieForm: React.FC = () => {

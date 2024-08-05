@@ -30,6 +30,17 @@ const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, prenom, nom, 
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
 
+            // Ajouter l'image de la signature manuellement
+            if (imageBase64) {
+              // Ajouter l'image de la signature à une position spécifique dans le PDF
+              // Vous pouvez ajuster les coordonnées x et y ainsi que la largeur et la hauteur de l'image selon vos besoins
+              const signatureX = 10; // Position X
+              const signatureY = pdfHeight + 10; // Position Y après l'image du canvas
+              const signatureWidth = 50; // Largeur de l'image de la signature
+              const signatureHeight = 20; // Hauteur de l'image de la signature
+              pdf.addImage(imageBase64, 'PNG', signatureX, signatureY, signatureWidth, signatureHeight);
+            }
+
             // Nom du fichier PDF à télécharger
             const fileName = `Decharge_Sortie_${prenom}_${nom}_${new Date().toISOString().split('T')[0]}.pdf`;
 
@@ -54,7 +65,7 @@ const Pdf: React.FC<PdfProps> = ({ text, imageBase64, showPreview, prenom, nom, 
               prenom={prenom} 
               nom={nom} 
               promotion={promotion} 
-              dateHeure={dateHeure} // Passer dateHeure au composant Preview
+              dateHeure={dateHeure}
             />
           </div>
         </div>
