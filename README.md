@@ -9,7 +9,7 @@
 - *src/assets/* : Fichiers statiques comme les images et les styles.
 
 ## Fonctionnalités
-# BRANCHE : *app-apprenant*
+## BRANCHE : *app-apprenant*
 
 ### 1. Gestion des Retards (RetardsTab)
 
