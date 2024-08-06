@@ -16,7 +16,6 @@ export const TabRouter: React.FC = () => {
     <>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path="/tabs/scan" component={ScanPage} exact={true} />
           <Route path="/tabs/message-scan" component={MessageScanTab} exact={true} />
           {ROUTES.map((route) => (
             <Route

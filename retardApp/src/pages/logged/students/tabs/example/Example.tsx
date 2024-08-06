@@ -21,11 +21,11 @@ export const StudentHome: React.FC<TabWrappedComponent> = ({ isTab }) => {
 
   return (
     <>
-      <Header title="Accueil" showLogo />
+      <Header title="Exemple" showLogo />
       <IonContent>
         <div className={`${isTab ? "tab-wrapper" : ""} student-home`}>
           <div className="student-home__swiper">
-            <h2>Dashboard Étudiant</h2>
+            <h2>Exemple </h2>
             <h2>Lorem ipsum, dolor sit amet </h2>
          
           </div>

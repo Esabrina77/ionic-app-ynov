@@ -51,27 +51,6 @@ export const MessageScanTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
     <>
       <Header title="Retards" showLogo />
       <IonContent>
-        {!scannedData ? (
-          <div>Aucune donnée de scan disponible.</div>
-        ) : scannedData.idStatusScan === 2 ? (
-          <>
-            <HeaderRadius>
-              <IonText>Le cours n'a pas encore commencé</IonText>
-            </HeaderRadius>
-            <div className='text_scan'>
-              <IonText>Veuillez patienter jusqu'au début du cours.</IonText>
-            </div>
-          </>
-        ) : scannedData.idStatusScan === 0 ? (
-          <>
-            <HeaderRadius>
-              <IonText>Présent</IonText>
-            </HeaderRadius>
-            <div className='text_scan'>
-              <IonText>Vous êtes arrivé à l'heure. Bon cours !</IonText>
-            </div>
-          </>
-        ) : scannedData.idStatusScan === 1 ? (
           <>
             <HeaderRadius>
               <IonText>Retard Pris en compte</IonText>
@@ -80,14 +59,11 @@ export const MessageScanTab: React.FC<TabWrappedComponent> = ({ isTab }) => {
               <IonText>
                 Votre Retard a bien été enregistré.
                 <p>Il vous reste <span className='danger'>{alertTime}</span> pour rejoindre votre salle: <span className='course'>{room}</span></p>
-                Durée du retard: <span className='danger'>{scannedData.minutesLate} minutes</span>
-              </IonText>
+               </IonText>
             </div>
             <IonImg className='class_gif' src={CourseGif} alt='course gif' />
           </>
-        ) : (
-          <div>Statut de scan non reconnu.</div>
-        )}
+   
       </IonContent>
     </>
   );
