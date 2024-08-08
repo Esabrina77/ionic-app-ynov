@@ -25,17 +25,26 @@ export const DechargeSortieForm: React.FC = () => {
   }, []);
 
   const save = useCallback(() => {
+    console.log('Bouton valider cliqué'); // Log pour vérifier si la fonction est appelée
+
     if (motif.trim() === "") {
+      console.log('Motif vide');
       return;
     }
   
     if (signatureRef.current) {
+      console.log('Référence de signature trouvée');
       const signatureData = signatureRef.current.getSignature();
       if (signatureData) {
         setSignatureData(signatureData);
+        console.log('Signature capturée');
       } else {
+        console.log('Pas de signature capturée');
         return;
       }
+    } else {
+      console.log('Référence de signature non trouvée');
+      return;
     }
   
     const now = new Date();
@@ -48,11 +57,13 @@ export const DechargeSortieForm: React.FC = () => {
     setDateHeure(dateHeureString);
   
     setShowPreview(true);
+    console.log('Prévisualisation affichée');
   }, [motif]);
   
   useEffect(() => {
     if (etudiant) {
       setShowPreview(false);
+      console.log('Prévisualisation masquée');
     }
   }, [etudiant]);
   
