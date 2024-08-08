@@ -33,7 +33,7 @@ import { RouteItem } from "../interfaces/tab-item.interface";
 import { qrCode } from "ionicons/icons";
 
 //import Décharge de Sortie
-import { DechargeSortieForm } from "../../../pages/logged/students/tabs/dechargesSorties/form";
+import { DechargeSortieForm } from "../../../pages/logged/students/tabs/DechargeSortie/DechargeSortie";
 
 // SVGS
 
@@ -52,7 +52,7 @@ export const ROUTES: RouteItem[] = [
 
 
   {
-    title: "decharge",
+    title: "Decharge",
     icon: <IonIcon src={accueil}></IonIcon>,
     component: DechargeSortieForm,
     tab: "decharge",
