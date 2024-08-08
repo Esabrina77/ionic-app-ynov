@@ -5,7 +5,7 @@
 ## Arborescence du Projet
 
 - *src/components/* : Composants réutilisables.
-- *src/src/pages/logged/students/tabs* : Pages principales de l'application.
+- *src/pages/logged/students/tabs* : Pages principales de l'application.
 - *src/services/* : Services pour les appels API.
 - *src/assets/* : Fichiers statiques comme les images et les styles.
 - *src/tools/* : Fonctions d'outils comme le cadre de signature.
@@ -66,10 +66,39 @@
 
 ### 1. Décharges de sorties
 
-- *Fichier* :
-- *Description* :
+- *Fichier* : src/pages/DechargeSortie/DechargeSortie.tsx
+- *Description* : Permet de créer une décharge de sortie en inscrivant que le motif et la signature
 
 #### Principales Fonctions :
+
+* save : permet en appuyant sur le bouton validé d'enregistrer toutes les données sur le pdf et de le télécharger
+
+#### Outils utilisés
+
+##### DateHeure
+
+- *Fichier* : src/tools/DateHeure/DateHeure.tsx
+- *Description* : Permet de récupérer la date et l'heure à laquelle la demande de décharge a été faite pour l'ajouter dans le fichier pdf
+
+##### JsonLecteur
+
+- *Fichier* : src/tools/JsonLecteur/JsonLecteur.tsx
+- *Description* : Permet la récupération dans un json d'un élève factice pour le nom, prenom et classe pour l'ajout au pdf
+
+##### Pdf
+
+- *Fichier* : src/tools/Pdf/Pdf.tsx
+- *Description* : Permet la création du pdf ainsi que son téléchargement
+
+##### Preview
+
+- *Fichier* : src/tools/Preview/Preview.tsx
+- *Description* : Permet l'affichage d'une preview du pdf dans la page lorsque l'on clique sur le bouton de validation
+
+##### Signature
+
+- *Fichier* : src/tools/Signature/Signature.tsx
+- *Description* : Permet d'avoir la zone de signature ainsi que de la transformer pour l'ajouter au fichier pdf
 
 ## Appels API
 
